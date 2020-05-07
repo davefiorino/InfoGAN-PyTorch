@@ -95,7 +95,7 @@ criterionQ_dis = nn.CrossEntropyLoss()
 criterionQ_con = NormalNLLLoss()
 
 # Adam optimiser is used.
-optimD = optim.Adam([{'params': discriminator.parameters()}, {'params': netD.parameters()}], lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
+optimD = optim.Adam([{'params': discriminator.parameters()}, {'params': netD.parameters()}],lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
 optimG = optim.Adam([{'params': netG.parameters()}, {'params': netQ.parameters()}], lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
 
 # Fixed Noise
