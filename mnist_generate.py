@@ -57,10 +57,8 @@ with torch.no_grad():
 # Display the generated image.
 fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
-print(type(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0))))
+print(type(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)).numpy()))
 plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)).numpy())
-plt.show()
-cv2_imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
 plt.show()
 
 # Generate image.
