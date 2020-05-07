@@ -3,7 +3,7 @@ import argparse
 import torch
 import torchvision.utils as vutils
 import numpy as np
-import matplotlib.pyplab as plt
+import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
