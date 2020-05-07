@@ -50,13 +50,15 @@ noise1 = torch.cat((z, c1, c2), dim=1)
 noise2 = torch.cat((z, c1, c3), dim=1)
 
 from google.colab.patches import cv2_imshow
+from PIL import Image
+
 # Generate image.
 with torch.no_grad():
     generated_img1 = netG(noise1).detach().cpu()
 # Display the generated image.
 fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
+plt.imshow(Image.fromarray(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0))))
 plt.show()
 cv2_imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
 plt.show()
