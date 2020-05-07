@@ -49,6 +49,7 @@ noise1 = torch.cat((z, c1, c2), dim=1)
 # To see variation along c3 (Horizontally) and c1 (Vertically)
 noise2 = torch.cat((z, c1, c3), dim=1)
 
+from google.colab.patches import cv2_imshow
 # Generate image.
 with torch.no_grad():
     generated_img1 = netG(noise1).detach().cpu()
@@ -56,6 +57,7 @@ with torch.no_grad():
 fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
+cv2_imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
 plt.show()
 
 # Generate image.
@@ -65,4 +67,5 @@ with torch.no_grad():
 fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, normalize=True), (1,2,0)))
+cv2_imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, normalize=True), (1,2,0)))
 plt.show()
