@@ -92,7 +92,7 @@ summary(discriminator, input_size=(1, 28, 28))
 netD = DHead().to(device)
 netD.apply(weights_init)
 print(netD)
-summary(discriminator, input_size=(1024, 1, 1))
+summary(netD, input_size=(1024, 1, 1))
 
 netQ = QHead().to(device)
 netQ.apply(weights_init)
