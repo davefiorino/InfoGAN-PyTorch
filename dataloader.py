@@ -59,7 +59,7 @@ def get_data(dataset, batch_size):
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.5], std=[0.5])])
 
-        dataset = dsets.ImageFolder(root=root+'chestx_ray', transform=transform)
+        dataset = dsets.ImageFolder(root=root+'chest_xray', transform=transform)
 
     # Create dataloader.
     dataloader = torch.utils.data.DataLoader(dataset, 
