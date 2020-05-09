@@ -49,6 +49,18 @@ def get_data(dataset, batch_size):
 
         dataset = dsets.ImageFolder(root=root+'celeba/', transform=transform)
 
+    # Get ChestXRay dataset.
+    # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
+    elif dataset == 'ChestXRay':
+        transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.CenterCrop(224),
+            transforms.Grayscale(num_output_channels=1),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.5], std=[0.5])]
+
+        dataset = dsets.ImageFolder(root=root+'chestxray/', transform=transform)
+
     # Create dataloader.
     dataloader = torch.utils.data.DataLoader(dataset, 
                                             batch_size=batch_size, 
