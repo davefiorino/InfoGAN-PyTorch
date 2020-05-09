@@ -13,6 +13,8 @@ from dataloader import get_data
 from utils import *
 from config import params
 
+from torchsummary import summary
+
 if(params['dataset'] == 'MNIST'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
 elif(params['dataset'] == 'SVHN'):
@@ -85,6 +87,7 @@ print(netG)
 discriminator = Discriminator().to(device)
 discriminator.apply(weights_init)
 print(discriminator)
+summary(discriminator, input_size=(1, 224, 224))
 
 netD = DHead().to(device)
 netD.apply(weights_init)
