@@ -87,7 +87,7 @@ print(netG)
 discriminator = Discriminator().to(device)
 discriminator.apply(weights_init)
 print(discriminator)
-summary(discriminator, input_size=(1, 224, 224))
+summary(discriminator, input_size=(1, 28, 28))
 
 netD = DHead().to(device)
 netD.apply(weights_init)

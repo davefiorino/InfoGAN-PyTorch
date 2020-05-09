@@ -6,5 +6,5 @@ params = {
     'beta1': 0.5, # Momentum parameter
     'beta2': 0.999, #RMSprop parameter
     'save_epoch' : 10,# After how many epochs to save checkpoints and generate test output.
-    'dataset' : 'ChestXRay'# Choose from {MNIST, SVHN, CelebA, FashionMNIST, ChestXRay}
+    'dataset' : 'MNIST'# Choose from {MNIST, SVHN, CelebA, FashionMNIST, ChestXRay}
 }
