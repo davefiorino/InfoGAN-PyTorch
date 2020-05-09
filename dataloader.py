@@ -60,11 +60,12 @@ def get_data(dataset, batch_size):
             transforms.Normalize(mean=[0.5], std=[0.5])])
 
         dataset = dsets.ImageFolder(root=root+'chest_xray/train', transform=transform)
-        print(dataset.__len__)
+        print(len(dataset))
 
     # Create dataloader.
     dataloader = torch.utils.data.DataLoader(dataset, 
                                             batch_size=batch_size, 
                                             shuffle=True)
+    print(len(dataloader))
 
     return dataloader
