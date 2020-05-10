@@ -38,6 +38,7 @@ print(device, " will be used.\n")
 
 dataloader = get_data(params['dataset'], params['batch_size'])
 print("Dataset element shape: ", dataloader.dataset[0][0].shape)
+print(dataloader.dataset[0][0].shape[1])
 
 # Set appropriate hyperparameters depending on the dataset used.
 # The values given in the InfoGAN paper are used.
