@@ -70,6 +70,5 @@ def get_data(dataset, batch_size):
     dataloader = torch.utils.data.DataLoader(dataset, 
                                             batch_size=batch_size, 
                                             shuffle=True)
-    print('Number of batches:', len(dataloader))
 
     return dataloader
