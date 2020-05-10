@@ -206,7 +206,9 @@ for epoch in range(params['num_epochs']):
 
         # Net loss for generator.
         G_loss = gen_loss + dis_loss + con_loss
-        print(G_loss)
+        print(gen_loss)
+        print(dis_loss)
+        print(con_loss)
         # Calculate gradients.
         G_loss.backward()
         # Update parameters.
