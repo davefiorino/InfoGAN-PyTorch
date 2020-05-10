@@ -90,10 +90,10 @@ class QHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv1 = nn.Conv2d(1024, 128, 1, bias=False)
+        self.conv1 = nn.Conv2d(1024, 128, 2, bias=False)
         self.bn1 = nn.BatchNorm2d(128)
 
-        self.conv_disc = nn.Conv2d(128, 10, 1)
+        self.conv_disc = nn.Conv2d(128, 20, 1)
         self.conv_mu = nn.Conv2d(128, 2, 1)
         self.conv_var = nn.Conv2d(128, 2, 1)
 
