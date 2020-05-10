@@ -37,6 +37,7 @@ device = torch.device("cuda:0" if(torch.cuda.is_available()) else "cpu")
 print(device, " will be used.\n")
 
 dataloader = get_data(params['dataset'], params['batch_size'])
+print("Dataset element shape: ", dataloader.dataset[0][0].shape)
 
 # Set appropriate hyperparameters depending on the dataset used.
 # The values given in the InfoGAN paper are used.
