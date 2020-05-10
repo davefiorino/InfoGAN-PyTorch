@@ -16,6 +16,7 @@ def get_data(dataset, batch_size):
 
         dataset = dsets.MNIST(root+'mnist/', train='train', 
                                 download=True, transform=transform)
+        print('Dataset len:', len(dataset))
 
     # Get SVHN dataset.
     elif dataset == 'SVHN':
@@ -26,6 +27,7 @@ def get_data(dataset, batch_size):
 
         dataset = dsets.SVHN(root+'svhn/', split='train', 
                                 download=True, transform=transform)
+        print('Dataset len:', len(dataset))
 
     # Get FashionMNIST dataset.
     elif dataset == 'FashionMNIST':
@@ -36,6 +38,7 @@ def get_data(dataset, batch_size):
 
         dataset = dsets.FashionMNIST(root+'fashionmnist/', train='train', 
                                 download=True, transform=transform)
+        print('Dataset len:', len(dataset))
 
     # Get CelebA dataset.
     # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
@@ -48,6 +51,7 @@ def get_data(dataset, batch_size):
                 (0.5, 0.5, 0.5))])
 
         dataset = dsets.ImageFolder(root=root+'celeba/', transform=transform)
+        print('Dataset len:', len(dataset))
 
     # Get ChestXRay dataset.
     # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
