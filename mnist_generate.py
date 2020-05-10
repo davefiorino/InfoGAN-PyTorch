@@ -10,6 +10,7 @@ parser.add_argument('-load_path', required=True, help='Checkpoint to load path f
 args = parser.parse_args()
 
 from models.mnist_model import Generator
+from config import params
 
 # Load the checkpoint file
 state_dict = torch.load(args.load_path)
@@ -23,7 +24,8 @@ params = state_dict['params']
 netG = Generator().to(device)
 # Load the trained generator weights.
 netG.load_state_dict(state_dict['netG'])
-print(netG)
+if params['print_model_description']:
+    print(netG)
 
 c = np.linspace(-2, 2, 10).reshape(1, -1)
 c = np.repeat(c, 10, 0).reshape(-1, 1)
