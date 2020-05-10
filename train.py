@@ -84,13 +84,14 @@ plt.close('all')
 netG = Generator().to(device)
 netG.apply(weights_init)
 print(netG)
-print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device)[0].shape)
-#summary(netD, input_size=(1024, 1, 1))
+noise_shape = noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device)[0].shape
+summary(netG, input_size=(noise_shape[1], noise_shape[2], noise_shape[3]))
 
 discriminator = Discriminator().to(device)
 discriminator.apply(weights_init)
 print(discriminator)
-summary(discriminator, input_size=(dataloader.dataset[0][0].shape[0], dataloader.dataset[0][0].shape[1], dataloader.dataset[0][0].shape[2]))
+dataset_shape = dataloader.dataset[0][0].shape
+summary(discriminator, input_size=(dataset_shape[0], dataset_shape[1], dataset_shape[2]))
 
 netD = DHead().to(device)
 netD.apply(weights_init)
@@ -100,7 +101,7 @@ summary(netD, input_size=(1024, 1, 1))
 netQ = QHead().to(device)
 netQ.apply(weights_init)
 print(netQ)
-summary(netD, input_size=(1024, 1, 1))
+summary(netQ, input_size=(1024, 1, 1))
 
 # Loss for discrimination between real and fake images.
 criterionD = nn.BCELoss()
