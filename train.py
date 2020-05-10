@@ -84,7 +84,7 @@ plt.close('all')
 netG = Generator().to(device)
 netG.apply(weights_init)
 print(netG)
-print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], b_size, device).shape)
+print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], dataloader.size(0), device).shape)
 summary(netD, input_size=(1024, 1, 1))
 
 discriminator = Discriminator().to(device)
