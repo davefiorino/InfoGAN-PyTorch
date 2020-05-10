@@ -37,8 +37,19 @@ class Discriminator(nn.Module):
         self.conv2 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
 
-        self.conv3 = nn.Conv2d(128, 256, 4, 2, 1, bias=False)
-        self.bn3 = nn.BatchNorm2d(256)
+        # New
+        self.conv2 = nn.Conv2d(128, 128, kernel_size=4, stride=2, padding=2, bias=False)
+        self.bn2 = nn.BatchNorm2d(128)
+
+        self.conv2 = nn.Conv2d(128, 128, 4, 2, 2, bias=False)
+        self.bn2 = nn.BatchNorm2d(128)
+
+        self.conv2 = nn.Conv2d(128, 128, 4, 2, 2, bias=False)
+        self.bn2 = nn.BatchNorm2d(128)
+        # End New
+
+        self.conv3 = nn.Conv2d(128, 1024, 7, bias=False)
+        self.bn3 = nn.BatchNorm2d(1024)
 
     def forward(self, x):
         x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
@@ -51,7 +62,7 @@ class DHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv = nn.Conv2d(256, 1, 4)
+        self.conv = nn.Conv2d(1024, 1, 1)
 
     def forward(self, x):
         output = torch.sigmoid(self.conv(x))
