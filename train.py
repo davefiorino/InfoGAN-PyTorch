@@ -87,7 +87,7 @@ print(netG)
 discriminator = Discriminator().to(device)
 discriminator.apply(weights_init)
 print(discriminator)
-summary(discriminator, input_size=(1, 28, 28))
+summary(discriminator, input_size=(1, 224, 224))
 
 netD = DHead().to(device)
 netD.apply(weights_init)
@@ -157,8 +157,6 @@ for epoch in range(params['num_epochs']):
         label = torch.full((b_size, ), real_label, device=device)
         output1 = discriminator(real_data)
         probs_real = netD(output1).view(-1)
-        print(len(probs_real))
-        print(len(label))
         loss_real = criterionD(probs_real, label)
         # Calculate gradients.
         loss_real.backward()
