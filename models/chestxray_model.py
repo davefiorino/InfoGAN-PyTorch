@@ -38,13 +38,13 @@ class Discriminator(nn.Module):
         self.bn2 = nn.BatchNorm2d(128)
 
         # New
-        self.conv3 = nn.Conv2d(128, 128, kernel_size=4, stride=2, padding=2, bias=False)
+        self.conv3 = nn.Conv2d(128, 128, kernel_size=4, stride=2, padding=1, bias=False)
         self.bn3 = nn.BatchNorm2d(128)
 
-        self.conv4 = nn.Conv2d(128, 128, 4, 2, 2, bias=False)
+        self.conv4 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn4 = nn.BatchNorm2d(128)
 
-        self.conv5 = nn.Conv2d(128, 128, 4, 2, 2, bias=False)
+        self.conv5 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn5 = nn.BatchNorm2d(128)
         # End New
 
