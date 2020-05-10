@@ -84,8 +84,8 @@ plt.close('all')
 netG = Generator().to(device)
 netG.apply(weights_init)
 print(netG)
-print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], dataloader.size(0), device).shape)
-summary(netD, input_size=(1024, 1, 1))
+#print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], len(dataloader), device).shape)
+#summary(netD, input_size=(1024, 1, 1))
 
 discriminator = Discriminator().to(device)
 discriminator.apply(weights_init)
@@ -152,6 +152,7 @@ for epoch in range(params['num_epochs']):
     for i, (data, _) in enumerate(dataloader, 0):
         # Get batch size
         b_size = data.size(0)
+        print("Batch size: ", b_size)
         # Transfer data tensor to GPU/CPU (device)
         real_data = data.to(device)
 
