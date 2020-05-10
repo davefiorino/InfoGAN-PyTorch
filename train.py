@@ -37,7 +37,7 @@ device = torch.device("cuda:0" if(torch.cuda.is_available()) else "cpu")
 print(device, " will be used.\n")
 
 dataloader = get_data(params['dataset'], params['batch_size'])
-print("Dataset element shape: ", dataloader.dataset[0][0].shape)
+print("Dataset element shape: ", dataloader.dataset[0][0].shape, '\n')
 
 # Set appropriate hyperparameters depending on the dataset used.
 # The values given in the InfoGAN paper are used.
@@ -84,7 +84,7 @@ plt.close('all')
 netG = Generator().to(device)
 netG.apply(weights_init)
 print(netG)
-print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device).shape)
+print(noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device)[0].shape)
 #summary(netD, input_size=(1024, 1, 1))
 
 discriminator = Discriminator().to(device)
