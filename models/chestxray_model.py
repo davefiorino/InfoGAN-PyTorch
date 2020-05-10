@@ -9,7 +9,7 @@ Architecture by Davide Fiorino.
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-
+        # 168 x 1 x 1
         self.tconv1 = nn.ConvTranspose2d(168, 1024, 1, 1, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 1 x 1
@@ -46,7 +46,7 @@ class Generator(nn.Module):
 class Discriminator(nn.Module):
     def __init__(self):
         super().__init__()
-
+        # 1 x 224 x 224
         self.conv1 = nn.Conv2d(1, 64, 4, 2, 1)
         # 64 x 112 x 112
         self.conv2 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
