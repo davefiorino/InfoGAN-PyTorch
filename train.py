@@ -152,7 +152,6 @@ for epoch in range(params['num_epochs']):
     for i, (data, _) in enumerate(dataloader, 0):
         # Get batch size
         b_size = data.size(0)
-        print("Batch size: ", b_size)
         # Transfer data tensor to GPU/CPU (device)
         real_data = data.to(device)
 
