@@ -206,14 +206,11 @@ for epoch in range(params['num_epochs']):
 
         # Net loss for generator.
         G_loss = gen_loss + dis_loss + con_loss
+        print(G_loss)
         # Calculate gradients.
         G_loss.backward()
         # Update parameters.
         optimG.step()
-
-        print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f'
-            % (epoch+1, params['num_epochs'], i, len(dataloader), 
-            D_loss.item(), G_loss.item()))
 
         # Check progress of training.
         if i != 0 and i%100 == 0:
