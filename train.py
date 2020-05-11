@@ -102,9 +102,7 @@ if params['print_model_description']:
     dataset_shape = dataloader.dataset[0][0].shape
     summary(discriminator, input_size=(dataset_shape[0], dataset_shape[1], dataset_shape[2]))
     print(netD)
-    summary(netD, input_size=(1024, 1, 1))
     print(netQ)
-    summary(netQ, input_size=(1024, 1, 1))
 
 # Loss for discrimination between real and fake images.
 criterionD = nn.BCELoss()
