@@ -135,11 +135,8 @@ if(params['num_dis_c'] != 0):
     dis_c = torch.zeros(100, params['num_dis_c'], params['dis_c_dim'], device=device)
     for i in range(params['num_dis_c']):
         dis_c[torch.arange(0, 100), i, idx] = 1.0
-
     dis_c = dis_c.view(100, -1, 1, 1)
-
     fixed_noise = torch.cat((fixed_noise, dis_c), dim=1)
-
 if(params['num_con_c'] != 0):
     con_c = torch.rand(100, params['num_con_c'], 1, 1, device=device) * 2 - 1
     fixed_noise = torch.cat((fixed_noise, con_c), dim=1)
@@ -286,7 +283,6 @@ torch.save({
     'optimG' : optimG.state_dict(),
     'params' : params
     }, 'checkpoint/model_final_{}'.format(params['dataset']))
-
 
 # Plot the training losses.
 plt.figure(figsize=(10,5))
