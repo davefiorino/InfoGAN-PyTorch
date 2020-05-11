@@ -7,5 +7,6 @@ params = {
     'beta2': 0.999, # RMSprop parameter
     'save_epoch' : 20, # After how many epochs to save checkpoints and generate test output.
     'dataset' : 'ChestXRay', # Choose from {MNIST, SVHN, CelebA, FashionMNIST, ChestXRay}
-    'print_model_description' : False # Print the description of the models during training and generation
+    'print_model_description' : False, # Print the description of the models during training and generation
+    'image_log': True # Save a generated image at every epoch (if False every 10 epochs)
 }
