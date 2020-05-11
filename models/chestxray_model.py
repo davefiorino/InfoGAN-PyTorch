@@ -61,7 +61,7 @@ class Discriminator(nn.Module):
         self.conv5 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn5 = nn.BatchNorm2d(128)
         # 128 x 7 x 7
-        self.conv6 = nn.Conv2d(128, 1024, 7, bias=False)
+        self.conv6 = nn.Conv2d(128, 1024, 6, bias=False)
         self.bn6 = nn.BatchNorm2d(1024)
         # 1024 x 1 x 1
 
