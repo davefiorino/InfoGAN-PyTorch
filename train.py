@@ -15,7 +15,7 @@ from torchsummary import summary
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-load_path', required=False, help='Checkpoint to load path from')
+parser.add_argument('-load_path', required=False, help='Checkpoint path to resume training')
 args = parser.parse_args()
 
 if(params['dataset'] == 'MNIST'):
