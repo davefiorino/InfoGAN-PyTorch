@@ -7,13 +7,16 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import time
 import random
-
 from models.mnist_model import Generator, Discriminator, DHead, QHead
 from dataloader import get_data
 from utils import *
 from config import params
-
 from torchsummary import summary
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-load_path', required=False, help='Checkpoint to load path from')
+args = parser.parse_args()
 
 if(params['dataset'] == 'MNIST'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
@@ -83,16 +86,14 @@ plt.close('all')
 # Initialise the network.
 netG = Generator().to(device)
 netG.apply(weights_init)
-
 discriminator = Discriminator().to(device)
 discriminator.apply(weights_init)
-
 netD = DHead().to(device)
 netD.apply(weights_init)
-
 netQ = QHead().to(device)
 netQ.apply(weights_init)
 
+# Print model summary
 if params['print_model_description']:
     print(netG)
     noise_shape = noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device)[0].shape
@@ -115,6 +116,16 @@ criterionQ_con = NormalNLLLoss()
 # Adam optimiser is used.
 optimD = optim.Adam([{'params': discriminator.parameters()}, {'params': netD.parameters()}],lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
 optimG = optim.Adam([{'params': netG.parameters()}, {'params': netQ.parameters()}], lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
+
+# Resume training
+if args.load_path:
+    checkpoint = torch.load(args.load_path)
+    netG.load_state_dict(checkpoint['netG'])
+    discriminator.load_state_dict(checkpoint['discriminator'])
+    netD.load_state_dict(checkpoint['netD'])
+    netQ.load_state_dict(checkpoint['netQ'])
+    optimD.load_state_dict(checkpoint['optimD'])
+    optimG.load_state_dict(checkpoint['optimG'])
 
 # Fixed Noise
 z = torch.randn(100, params['num_z'], 1, 1, device=device)
