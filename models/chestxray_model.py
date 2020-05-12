@@ -10,25 +10,25 @@ class Generator(nn.Module):
     def __init__(self):
         super().__init__()
         # 128 x 1 x 1
-        self.tconv1 = nn.ConvTranspose2d(146, 1024, 1, 1, bias=False)
+        self.tconv1 = nn.ConvTranspose2d(128, 1024, kernel_size=2, padding=2, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
-        self.tconv2 = nn.ConvTranspose2d(1024, 128, kernel_size=7, stride=1, bias=False)
-        self.bn2 = nn.BatchNorm2d(128)
+        self.tconv2 = nn.ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(512)
         # 512 x 8 x 8
-        self.tconv3 = nn.ConvTranspose2d(128, 128, kernel_size=4, stride=2, padding=1, bias=False)
-        self.bn3 = nn.BatchNorm2d(128)
+        self.tconv3 = nn.ConvTranspose2d(128, 256, 4, 2, padding=1, bias=False)
+        self.bn3 = nn.BatchNorm2d(256)
         # 256 x 16 x 16
-        self.tconv4 = nn.ConvTranspose2d(128, 128, 4, 2, padding=1, bias=False)
+        self.tconv4 = nn.ConvTranspose2d(256, 128, 4, 2, padding=1, bias=False)
         self.bn4 = nn.BatchNorm2d(128)
         # 128 x 32 x 32
-        self.tconv5 = nn.ConvTranspose2d(128, 128, 4, 2, padding=1, bias=False)
-        self.bn5 = nn.BatchNorm2d(128)
+        self.tconv5 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
+        self.bn5 = nn.BatchNorm2d(64)
         # 64 x 64 x 64
-        self.tconv6 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
-        self.bn6 = nn.BatchNorm2d(64)
+        self.tconv6 = nn.ConvTranspose2d(64, 32, 4, 2, padding=1, bias=False)
+        self.bn6 = nn.BatchNorm2d(32)
         # 32 x 128 x 128
-        self.tconv7 = nn.ConvTranspose2d(64, 1, 4, 2, padding=1, bias=False)
+        self.tconv7 = nn.ConvTranspose2d(32, 1, 4, 2, padding=1, bias=False)
         # 1 x 256 x 256
 
     def forward(self, x):
@@ -46,24 +46,24 @@ class Generator(nn.Module):
 class Discriminator(nn.Module):
     def __init__(self):
         super().__init__()
-        # 1 x 224 x 224
+        # 1 x 256 x 256
         self.conv1 = nn.Conv2d(1, 64, 4, 2, 1)
-        # 64 x 112 x 112
+        # 32 x 128 x 128
         self.conv2 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
-        # 128 x 56 x 56
+        # 64 x 64 x 64
         self.conv3 = nn.Conv2d(128, 128, kernel_size=4, stride=2, padding=1, bias=False)
         self.bn3 = nn.BatchNorm2d(128)
-        # 128 x 28 x 28
+        # 128 x 32 x 32
         self.conv4 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn4 = nn.BatchNorm2d(128)
-        # 128 x 14 x 14
+        # 256 x 16 x 16
         self.conv5 = nn.Conv2d(128, 128, 4, 2, 1, bias=False)
         self.bn5 = nn.BatchNorm2d(128)
-        # 128 x 7 x 7
+        # 512 x 8 x 8
         self.conv6 = nn.Conv2d(128, 1024, 6, bias=False)
         self.bn6 = nn.BatchNorm2d(1024)
-        # 1024 x 2 x 2
+        # 1024 x 4 x 4
 
     def forward(self, x):
         x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
