@@ -80,7 +80,7 @@ plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(
     sample_batch[0].to(device)[ : 100], nrow=10, padding=2, normalize=True).cpu(), (1, 2, 0)))
-plt.savefig('Training Images {}'.format(params['dataset']))
+plt.savefig('output/Training Images {}'.format(params['dataset']))
 plt.close('all')
 
 # Initialise the network.
@@ -243,7 +243,7 @@ for epoch in range(params['num_epochs']):
         plt.figure(figsize=(10, 10))
         plt.axis("off")
         plt.imshow(np.transpose(vutils.make_grid(gen_data, nrow=10, padding=2, normalize=True), (1,2,0)))
-        plt.savefig("Epoch_%d {}".format(params['dataset']) %(epoch+1))
+        plt.savefig("output/Epoch_%d {}".format(params['dataset']) %(epoch+1))
         plt.close('all')
 
     # Save network weights.
@@ -269,7 +269,7 @@ with torch.no_grad():
 plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(gen_data, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("Epoch_%d_{}".format(params['dataset']) %(params['num_epochs']))
+plt.savefig("output/Epoch_%d_{}".format(params['dataset']) %(params['num_epochs']))
 
 # Save network weights.
 torch.save({
@@ -290,7 +290,7 @@ plt.plot(D_losses,label="D")
 plt.xlabel("iterations")
 plt.ylabel("Loss")
 plt.legend()
-plt.savefig("Loss Curve {}".format(params['dataset']))
+plt.savefig("output/Loss Curve {}".format(params['dataset']))
 
 # Animation showing the improvements of the generator.
 # bug with matplotlib 3.2.1 https://github.com/matplotlib/matplotlib/issues/17097
@@ -298,5 +298,5 @@ fig = plt.figure(figsize=(10,10))
 plt.axis("off")
 ims = [[plt.imshow(np.transpose(i,(1,2,0)), animated=True)] for i in img_list]
 anim = animation.ArtistAnimation(fig, ims, interval=1000, repeat_delay=1000, blit=True)
-anim.save('infoGAN_{}.gif'.format(params['dataset']), dpi=80, writer='imagemagick')
+anim.save('output/infoGAN_{}.gif'.format(params['dataset']), dpi=80, writer='imagemagick')
 plt.show()
