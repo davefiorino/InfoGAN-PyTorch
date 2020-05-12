@@ -225,9 +225,11 @@ for epoch in range(params['num_epochs']):
             print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f'
                   % (epoch+1, params['num_epochs'], i, len(dataloader), 
                     D_loss.item(), G_loss.item()))
+            logFile = open("output/log.txt", "a")
             logFile.write('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f'
                   % (epoch+1, params['num_epochs'], i, len(dataloader), 
                     D_loss.item(), G_loss.item()))
+            logFile.close()
 
         # Save the losses for plotting.
         G_losses.append(G_loss.item())
@@ -237,7 +239,9 @@ for epoch in range(params['num_epochs']):
 
     epoch_time = time.time() - epoch_start_time
     print("Time taken for Epoch %d: %.2fs" %(epoch + 1, epoch_time))
+    logFile = open("output/log.txt", "a")
     logFile.write("\nTime taken for Epoch %d: %.2fs" %(epoch + 1, epoch_time))
+    logFile.close()
     # Generate image after each epoch to check performance of the generator. Used for creating animated gif later.
     with torch.no_grad():
         gen_data = netG(fixed_noise).detach().cpu()
@@ -269,9 +273,11 @@ training_time = time.time() - start_time
 print("-"*50)
 print('Training finished!\nTotal Time for Training: %.2fm' %(training_time / 60))
 print("-"*50)
+logFile = open("output/log.txt", "a")
 logFile.write('\n')
 logFile.write("-"*50)
 logFile.write('\nTraining finished!\nTotal Time for Training: %.2fm' %(training_time / 60))
+logFile.close()
 
 # Generate image to check performance of trained generator.
 with torch.no_grad():
