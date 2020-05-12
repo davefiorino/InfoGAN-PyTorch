@@ -11,7 +11,7 @@ from models.mnist_model import Generator, Discriminator, DHead, QHead
 from dataloader import get_data
 from utils import *
 from config import params
-from torchsummary import summary
+from mytorchsummary import summary
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -98,10 +98,10 @@ logFile = open("output/log.txt", "a")
 if params['print_model_description']:
     print(netG)
     noise_shape = noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device)[0].shape
-    summary(netG, input_size=(noise_shape[1], noise_shape[2], noise_shape[3]))
+    summary(netG, input_size=(noise_shape[1], noise_shape[2], noise_shape[3]), log_file=logFile)
     print(discriminator)
     dataset_shape = dataloader.dataset[0][0].shape
-    summary(discriminator, input_size=(dataset_shape[0], dataset_shape[1], dataset_shape[2]))
+    summary(discriminator, input_size=(dataset_shape[0], dataset_shape[1], dataset_shape[2]), log_file=logFile)
     print(netD)
     print(netQ)
 
@@ -155,6 +155,7 @@ print("-"*25)
 logFile.write('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d \n'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
 logFile.write('Learning rate: %f\nBeta 1: %f\nBeta 2: %f\n' % (params['learning_rate'], params['beta1'], params['beta2']))
 logFile.write("-"*25)
+logFile.close()
 
 start_time = time.time()
 iters = 0
