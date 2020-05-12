@@ -12,7 +12,6 @@ def summary(model, input_size, batch_size=-1, device=torch.device('cuda:0'), dty
     print(result)
     if log_file:
         log_file.write(result)
-        log_file.write('\n')
     return params_info
 
 
