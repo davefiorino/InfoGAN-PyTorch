@@ -2,5 +2,5 @@
 __pycache__
 .vscode
 .mypy_cache
-risultati
 output
+output_backup
