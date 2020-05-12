@@ -275,7 +275,7 @@ for epoch in range(params['num_epochs']):
             'optimD' : optimD.state_dict(),
             'optimG' : optimG.state_dict(),
             'params' : params
-            }, 'checkpoint/model_epoch_%d_{}'.format(params['dataset']) %(epoch+1))
+            }, 'output/checkpoint/model_epoch_%d_{}'.format(params['dataset']) %(epoch+1))
 
 training_time = time.time() - start_time
 print("-"*50)
@@ -304,7 +304,7 @@ torch.save({
     'optimD' : optimD.state_dict(),
     'optimG' : optimG.state_dict(),
     'params' : params
-    }, 'checkpoint/model_final_{}'.format(params['dataset']))
+    }, 'output/checkpoint/model_final_{}'.format(params['dataset']))
 
 # Plot the training losses.
 plt.figure(figsize=(10,5))
