@@ -13,24 +13,27 @@ from utils import *
 from config import params
 from mytorchsummary import summary
 import argparse
-from os import makedirs
+from os import makedirs, path
 from shutil import copyfile, rmtree
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=False, help='Checkpoint path to resume training')
-parser.add_argument('-reset_output', required=False, help='Add this argument to clean the output folder')
+parser.add_argument('-reset_output', '-ro', required=False, action='store_true', help='Add this argument to clean the output folder')
 args = parser.parse_args()
 
 # create directory to save output
-if args.reset_output:
-    try:
-        rmtree('output')
-    except OSError as e:
-        print("Error: %s - %s." % (e.filename, e.strerror))
-makedirs('output') 
-makedirs('output/checkpoint') 
-copyfile('data/.gitignore', 'output/.gitignore')
-
+if args.reset_output and path.isdir('output'):
+    rmtree('output')
+try: 
+    makedirs('output') 
+    makedirs('output/checkpoint') 
+    copyfile('data/.gitignore', 'output/.gitignore')
+except OSError as error: 
+    if error.errno == 17:
+        print("ERROR 17: Directory 'output' alredy exists in paht, remove it or use the option -ro to delete it.")
+    else:
+        print(error)
+    exit()
 
 if(params['dataset'] == 'MNIST'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
