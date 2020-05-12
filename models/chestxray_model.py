@@ -79,8 +79,8 @@ class DHead(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv = nn.Conv2d(1024, 1, 2)
-
+        self.conv = nn.Conv2d(1024, 1, kernel_size=2, stride=1, padding=0)
+        # 1 x 1 x 1
     def forward(self, x):
         output = torch.sigmoid(self.conv(x))
 
