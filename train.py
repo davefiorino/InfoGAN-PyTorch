@@ -147,14 +147,17 @@ img_list = []
 G_losses = []
 D_losses = []
 
+logFile = open("output/log.txt", "a")
 print("-"*25)
 print("Starting Training Loop...\n")
 print('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
 print("-"*25)
+logFile.write('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d \n'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
+logFile.write("-"*25)
 
 start_time = time.time()
 iters = 0
-
+    
 for epoch in range(params['num_epochs']):
     epoch_start_time = time.time()
 
@@ -222,6 +225,9 @@ for epoch in range(params['num_epochs']):
             print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f'
                   % (epoch+1, params['num_epochs'], i, len(dataloader), 
                     D_loss.item(), G_loss.item()))
+            logFile.write('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f'
+                  % (epoch+1, params['num_epochs'], i, len(dataloader), 
+                    D_loss.item(), G_loss.item()))
 
         # Save the losses for plotting.
         G_losses.append(G_loss.item())
@@ -231,6 +237,7 @@ for epoch in range(params['num_epochs']):
 
     epoch_time = time.time() - epoch_start_time
     print("Time taken for Epoch %d: %.2fs" %(epoch + 1, epoch_time))
+    logFile.write("\nTime taken for Epoch %d: %.2fs" %(epoch + 1, epoch_time))
     # Generate image after each epoch to check performance of the generator. Used for creating animated gif later.
     with torch.no_grad():
         gen_data = netG(fixed_noise).detach().cpu()
@@ -262,6 +269,9 @@ training_time = time.time() - start_time
 print("-"*50)
 print('Training finished!\nTotal Time for Training: %.2fm' %(training_time / 60))
 print("-"*50)
+logFile.write('\n')
+logFile.write("-"*50)
+logFile.write('\nTraining finished!\nTotal Time for Training: %.2fm' %(training_time / 60))
 
 # Generate image to check performance of trained generator.
 with torch.no_grad():
