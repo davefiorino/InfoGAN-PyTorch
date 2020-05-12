@@ -10,13 +10,13 @@ class Generator(nn.Module):
     def __init__(self):
         super().__init__()
         # 128 x 1 x 1
-        self.tconv1 = nn.ConvTranspose2d(128, 1024, kernel_size=2, padding=2, bias=False)
+        self.tconv1 = nn.ConvTranspose2d(128, 1024, kernel_size=4, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
         self.tconv2 = nn.ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(512)
         # 512 x 8 x 8
-        self.tconv3 = nn.ConvTranspose2d(128, 256, 4, 2, 1, bias=False)
+        self.tconv3 = nn.ConvTranspose2d(512, 256, 4, 2, 1, bias=False)
         self.bn3 = nn.BatchNorm2d(256)
         # 256 x 16 x 16
         self.tconv4 = nn.ConvTranspose2d(256, 128, 4, 2, 1, bias=False)
@@ -61,7 +61,7 @@ class Discriminator(nn.Module):
         self.conv5 = nn.Conv2d(256, 512, 4, 2, 1, bias=False)
         self.bn5 = nn.BatchNorm2d(512)
         # 512 x 8 x 8
-        self.conv6 = nn.Conv2d(512, 1024, 4, 2, 1 bias=False)
+        self.conv6 = nn.Conv2d(512, 1024, 4, 2, 1, bias=False)
         self.bn6 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
 
