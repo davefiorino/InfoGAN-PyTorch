@@ -13,6 +13,14 @@ from utils import *
 from config import params
 from mytorchsummary import summary
 import argparse
+from os import mkdir
+
+# create directory to save output
+try:
+    mkdir('output') 
+    mkdir('output/checkpoint') 
+except OSError as error: 
+    print(error)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=False, help='Checkpoint path to resume training')
