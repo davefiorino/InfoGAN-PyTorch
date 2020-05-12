@@ -94,6 +94,7 @@ netQ = QHead().to(device)
 netQ.apply(weights_init)
 
 # Print model summary
+logFile = open("output/log.txt", "a")
 if params['print_model_description']:
     print(netG)
     noise_shape = noise_sample(params['num_dis_c'], params['dis_c_dim'], params['num_con_c'], params['num_z'], params['batch_size'], device)[0].shape
@@ -147,12 +148,12 @@ img_list = []
 G_losses = []
 D_losses = []
 
-logFile = open("output/log.txt", "a")
 print("-"*25)
 print("Starting Training Loop...\n")
 print('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
 print("-"*25)
 logFile.write('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d \n'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
+logFile.write('Learning rate: %f\nBeta 1: %f\nBeta 2: %f\n' % (params['learning_rate'], params['beta1'], params['beta2']))
 logFile.write("-"*25)
 
 start_time = time.time()
