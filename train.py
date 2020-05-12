@@ -27,7 +27,6 @@ if args.reset_output and path.isdir('output'):
 try: 
     makedirs('output') 
     makedirs('output/checkpoint') 
-    copyfile('data/.gitignore', 'output/.gitignore')
 except OSError as error: 
     if error.errno == 17:
         print("ERROR 17: Directory 'output' alredy exists in paht, remove it or use the option -ro to delete it.")
