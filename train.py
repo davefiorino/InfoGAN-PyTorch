@@ -13,18 +13,24 @@ from utils import *
 from config import params
 from mytorchsummary import summary
 import argparse
-from os import mkdir
-
-# create directory to save output
-try:
-    mkdir('output') 
-    mkdir('output/checkpoint') 
-except OSError as error: 
-    print(error)
+from os import makedirs
+from shutil import copyfile, rmtree
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=False, help='Checkpoint path to resume training')
+parser.add_argument('-reset_output', required=False, help='Add this argument to clean the output folder')
 args = parser.parse_args()
+
+# create directory to save output
+if args.reset_output:
+    try:
+        rmtree('output')
+    except OSError as e:
+        print("Error: %s - %s." % (e.filename, e.strerror))
+makedirs('output') 
+makedirs('output/checkpoint') 
+copyfile('data/.gitignore', 'output/.gitignore')
+
 
 if(params['dataset'] == 'MNIST'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
