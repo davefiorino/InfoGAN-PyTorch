@@ -9,27 +9,27 @@ Architecture by Davide Fiorino.
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-        # 146 x 1 x 1
+        # 128 x 1 x 1
         self.tconv1 = nn.ConvTranspose2d(146, 1024, 1, 1, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
-        # 1024 x 1 x 1
+        # 1024 x 4 x 4
         self.tconv2 = nn.ConvTranspose2d(1024, 128, kernel_size=7, stride=1, bias=False)
         self.bn2 = nn.BatchNorm2d(128)
-        # 128 x 7 x 7
+        # 512 x 8 x 8
         self.tconv3 = nn.ConvTranspose2d(128, 128, kernel_size=4, stride=2, padding=1, bias=False)
         self.bn3 = nn.BatchNorm2d(128)
-        # 128 x 14 x 14
+        # 256 x 16 x 16
         self.tconv4 = nn.ConvTranspose2d(128, 128, 4, 2, padding=1, bias=False)
         self.bn4 = nn.BatchNorm2d(128)
-        # 128 x 28 x 28
+        # 128 x 32 x 32
         self.tconv5 = nn.ConvTranspose2d(128, 128, 4, 2, padding=1, bias=False)
         self.bn5 = nn.BatchNorm2d(128)
-        # 128 x 56 x 56
+        # 64 x 64 x 64
         self.tconv6 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
         self.bn6 = nn.BatchNorm2d(64)
-        # 64 x 112 x 112
+        # 32 x 128 x 128
         self.tconv7 = nn.ConvTranspose2d(64, 1, 4, 2, padding=1, bias=False)
-        # 1 x 224 x 224
+        # 1 x 256 x 256
 
     def forward(self, x):
         x = F.relu(self.bn1(self.tconv1(x)))
