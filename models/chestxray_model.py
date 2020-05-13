@@ -153,7 +153,7 @@ class Discriminator(nn.Module):
 class DHead(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv = nn.Conv2d(1024, 1, kernel_size=4)
+        self.conv = nn.Conv2d(1024, 1, 4)
         # 1 x 1 x 1
 
     def forward(self, x):
