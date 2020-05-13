@@ -59,7 +59,7 @@ def get_data(dataset, batch_size):
         transform = transforms.Compose([
             transforms.Resize(32),
             transforms.CenterCrop(32),
-            #transforms.Grayscale(num_output_channels=1),
+            transforms.Grayscale(num_output_channels=1),
             transforms.ToTensor()])
             #transforms.Normalize(mean=[0.5], std=[0.5])])
 
