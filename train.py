@@ -42,8 +42,10 @@ elif(params['dataset'] == 'CelebA'):
     from models.celeba_model import Generator, Discriminator, DHead, QHead
 elif(params['dataset'] == 'FashionMNIST'):
     from models.mnist_model import Generator, Discriminator, DHead, QHead
+# elif(params['dataset'] == 'ChestXRay'):
+#     from models.chestxray_model import Generator, Discriminator, DHead, QHead
 elif(params['dataset'] == 'ChestXRay'):
-    from models.chestxray_model import Generator, Discriminator, DHead, QHead
+    from models.mnist_model import Generator, Discriminator, DHead, QHead
 
 # Set random seed for reproducibility.
 seed = 1123
@@ -84,9 +86,14 @@ elif(params['dataset'] == 'FashionMNIST'):
     params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
     params['num_con_c'] = 2
-elif(params['dataset'] == 'ChestXRay'):
-    params['num_z'] = 106
-    params['num_dis_c'] = 2
+# elif(params['dataset'] == 'ChestXRay'):
+#     params['num_z'] = 106
+#     params['num_dis_c'] = 2
+#     params['dis_c_dim'] = 10
+#     params['num_con_c'] = 2
+if(params['dataset'] == 'ChestXRay'):
+    params['num_z'] = 62
+    params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
     params['num_con_c'] = 2
 
