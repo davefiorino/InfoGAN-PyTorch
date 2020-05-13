@@ -133,8 +133,8 @@ criterionQ_dis = nn.CrossEntropyLoss()
 criterionQ_con = NormalNLLLoss()
 
 # Adam optimiser is used.
-optimD = optim.Adam([{'params': discriminator.parameters()}, {'params': netD.parameters()}],lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
-optimG = optim.Adam([{'params': netG.parameters()}, {'params': netQ.parameters()}], lr=params['learning_rate'], betas=(params['beta1'], params['beta2']))
+optimD = optim.Adam([{'params': discriminator.parameters()}, {'params': netD.parameters()}],lr=params['learning_rate_D'], betas=(params['beta1'], params['beta2']))
+optimG = optim.Adam([{'params': netG.parameters()}, {'params': netQ.parameters()}], lr=params['learning_rate_G'], betas=(params['beta1'], params['beta2']))
 
 # Resume training
 if args.load_path:
@@ -175,7 +175,7 @@ print("-"*25)
 logFile.write("-"*25)
 logFile.write("\nStarting Training Loop...\n")
 logFile.write('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d \n'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
-logFile.write('Learning rate: %f\nBeta 1: %f\nBeta 2: %f\n' % (params['learning_rate'], params['beta1'], params['beta2']))
+logFile.write('Learning rate D: %f\nLearning rate G: %f\nBeta 1: %f\nBeta 2: %f\n' % (params['learning_rate_D'], params['learning_rate_G'], params['beta1'], params['beta2']))
 logFile.write("-"*25)
 logFile.close()
 
