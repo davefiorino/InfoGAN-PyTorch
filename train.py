@@ -279,7 +279,7 @@ for epoch in range(params['num_epochs']):
     img_list.append(vutils.make_grid(gen_data, nrow=10, padding=2, normalize=True))
 
     # Generate image to check performance of generator.
-    if (epoch+1) == 1 or (epoch+1) % image_log_epoch == 0:
+    if (epoch+1) == 1 or (epoch+1) % params['image_log_epoch'] == 0:
         with torch.no_grad():
             gen_data = netG(fixed_noise).detach().cpu()
         plt.figure(figsize=(10, 10))
