@@ -1,9 +1,9 @@
 # Dictionary storing network parameters.
 params = {
     'batch_size': 64, # Batch size.
-    'num_epochs': 20, # Number of epochs to train for. 
+    'num_epochs': 40, # Number of epochs to train for. 
     'learning_rate_D': 2e-4, # Learning rate for discriminator
-    'learning_rate_G': 1e-3,# learning rate for generator 
+    'learning_rate_G': 2e-4,# learning rate for generator 
     'beta1': 0.5, # Momentum parameter
     'beta2': 0.999, # RMSprop parameter
     'save_epoch' : 20, # After how many epochs to save checkpoints and generate test output.
