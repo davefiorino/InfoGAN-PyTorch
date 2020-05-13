@@ -1,6 +1,6 @@
 # Dictionary storing network parameters.
 params = {
-    'batch_size': 128, # Batch size.
+    'batch_size': 64, # Batch size.
     'num_epochs': 40, # Number of epochs to train for. 
     'learning_rate_D': 2e-4, # Learning rate for discriminator
     'learning_rate_G': 2e-4,# learning rate for generator 

@@ -45,7 +45,7 @@ elif(params['dataset'] == 'FashionMNIST'):
 # elif(params['dataset'] == 'ChestXRay'):
 #     from models.chestxray_model import Generator, Discriminator, DHead, QHead
 elif(params['dataset'] == 'ChestXRay'):
-    from models.mnist_model import Generator, Discriminator, DHead, QHead
+    from models.svhn_model import Generator, Discriminator, DHead, QHead
 
 # Set random seed for reproducibility.
 seed = 1123
@@ -92,10 +92,10 @@ elif(params['dataset'] == 'FashionMNIST'):
 #     params['dis_c_dim'] = 10
 #     params['num_con_c'] = 2
 if(params['dataset'] == 'ChestXRay'):
-    params['num_z'] = 62
-    params['num_dis_c'] = 1
+    params['num_z'] = 124
+    params['num_dis_c'] = 4
     params['dis_c_dim'] = 10
-    params['num_con_c'] = 2
+    params['num_con_c'] = 4
 
 # Plot the training images.
 sample_batch = next(iter(dataloader))
@@ -279,7 +279,7 @@ for epoch in range(params['num_epochs']):
     img_list.append(vutils.make_grid(gen_data, nrow=10, padding=2, normalize=True))
 
     # Generate image to check performance of generator.
-    if params['image_log'] or (epoch+1) == 1 or (epoch+1) == params['num_epochs']/2 or epoch%10 == 0:
+    if params['image_log'] or (epoch+1) == 1 or (epoch+1)%10 == 0:
         with torch.no_grad():
             gen_data = netG(fixed_noise).detach().cpu()
         plt.figure(figsize=(10, 10))
