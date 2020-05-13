@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+'''
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
@@ -78,16 +78,16 @@ class QHead(nn.Module):
         var = torch.exp(self.conv_var(x).squeeze())
 
         return disc_logits, mu, var
-
+'''
 """
 Architecture by Davide Fiorino.
 """
-'''
+
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-        # 128 x 1 x 1
-        self.tconv1 = nn.ConvTranspose2d(128, 1024, 4, bias=False)
+        # 512 x 1 x 1
+        self.tconv1 = nn.ConvTranspose2d(512, 1024, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
         self.tconv2 = nn.ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=1, bias=False)
@@ -100,10 +100,8 @@ class Generator(nn.Module):
         self.bn4 = nn.BatchNorm2d(128)
         # 128 x 32 x 32
         self.tconv5 = nn.ConvTranspose2d(128, 64, 4, 2, 1, bias=False)
-        self.bn5 = nn.BatchNorm2d(64)
         # 64 x 64 x 64
         self.tconv6 = nn.ConvTranspose2d(64, 32, 4, 2, 1, bias=False)
-        self.bn6 = nn.BatchNorm2d(32)
         # 32 x 128 x 128
         self.tconv7 = nn.ConvTranspose2d(32, 1, 4, 2, 1, bias=False)
         # 1 x 256 x 256
@@ -113,8 +111,8 @@ class Generator(nn.Module):
         x = F.relu(self.bn2(self.tconv2(x)))
         x = F.relu(self.bn3(self.tconv3(x)))
         x = F.relu(self.bn4(self.tconv4(x)))
-        x = F.relu(self.bn5(self.tconv5(x)))
-        x = F.relu(self.bn6(self.tconv6(x)))
+        x = F.relu(self.tconv5(x))
+        x = F.relu(self.tconv6(x))
 
         img = torch.sigmoid(self.tconv7(x))
 
@@ -182,4 +180,4 @@ class QHead(nn.Module):
         var = torch.exp(self.conv_var(x).squeeze())
 
         return disc_logits, mu, var
-'''
+
