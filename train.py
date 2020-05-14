@@ -303,13 +303,6 @@ logFile.write("-"*50)
 logFile.write('\nTraining finished!\nTotal Time for Training: %.2fm' %(training_time / 60))
 logFile.close()
 
-# Generate image to check performance of trained generator.
-with torch.no_grad():
-    gen_data = netG(fixed_noise).detach().cpu()
-plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(gen_data, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("output/Epoch_%d_{}".format(params['dataset']) %(params['num_epochs']))
 
 # Save network weights.
 torch.save({
