@@ -72,3 +72,4 @@ def get_data(dataset, batch_size):
                                             shuffle=True)
 
     return dataloader
+    
