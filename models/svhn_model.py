@@ -12,16 +12,16 @@ class Generator(nn.Module):
         # 168 x 1 x 1
         self.tconv1 = nn.ConvTranspose2d(168, 448, 2, 1, bias=False)
         self.bn1 = nn.BatchNorm2d(448)
-        # 448 x 1 x 1
+        # 448 x 2 x 2
         self.tconv2 = nn.ConvTranspose2d(448, 256, 4, 2, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(256)
-        # 168 x 1 x 1
+        # 256 x 4 x 4
         self.tconv3 = nn.ConvTranspose2d(256, 128, 4, 2, padding=1, bias=False)
-        # 168 x 1 x 1
+        # 128 x 8 x 8
         self.tconv4 = nn.ConvTranspose2d(128, 64, 4, 2, padding=1, bias=False)
-        # 168 x 1 x 1
+        # 64 x 16 x 16
         self.tconv5 = nn.ConvTranspose2d(64, 3, 4, 2, padding=1, bias=False)
-        # 168 x 1 x 1
+        # 3 x 32 x 32
 
     def forward(self, x):
         x = F.relu(self.bn1(self.tconv1(x)))
