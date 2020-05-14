@@ -9,5 +9,5 @@ params = {
     'save_epoch' : 10, # After how many epochs to save checkpoints
     'dataset' : 'ChestXRay', # Choose from {MNIST, SVHN, CelebA, FashionMNIST, ChestXRay}
     'print_model_description' : True, # Print the description of the models during training and generation
-    'image_log_epoch': 10 # Save a generated image every X epochs
+    'image_log_epoch': 5 # Save a generated image every X epochs
 }
