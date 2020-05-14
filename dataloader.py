@@ -57,8 +57,8 @@ def get_data(dataset, batch_size):
     # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
     elif dataset == 'ChestXRay':
         transform = transforms.Compose([
-            transforms.Resize(64),
-            transforms.CenterCrop(64),
+            transforms.Resize(128),
+            transforms.CenterCrop(128),
             transforms.Grayscale(num_output_channels=1),
             transforms.ToTensor()])
             #transforms.Normalize(mean=[0.5], std=[0.5])])
