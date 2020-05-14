@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
@@ -20,16 +21,14 @@ class Generator(nn.Module):
         self.tconv5 = nn.ConvTranspose2d(128, 1, 4, 2, padding=1, bias=False)
         # 1x64x64
 
-
     def forward(self, x):
         x = F.relu(self.bn1(self.tconv1(x)))
         x = F.relu(self.bn2(self.tconv2(x)))
         x = F.relu(self.bn3(self.tconv3(x)))
         x = F.relu(self.tconv4(x))
-
         img = torch.tanh(self.tconv5(x))
-
         return img
+
 
 class Discriminator(nn.Module):
     def __init__(self):
@@ -53,8 +52,8 @@ class Discriminator(nn.Module):
         x = F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True)
         x = F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True)
         x = F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True)
-
         return x
+
 
 class DHead(nn.Module):
     def __init__(self):
