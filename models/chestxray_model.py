@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+'''
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
@@ -97,16 +97,16 @@ class QHead(nn.Module):
         var = torch.exp(self.conv_var(x).squeeze())
 
         return disc_logits, mu, var
-
+'''
 """
 Architecture by Davide Fiorino.
 """
-'''
+
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-        # 256 x 1 x 1
-        self.tconv1 = nn.ConvTranspose2d(256, 1024, 4, bias=False)
+        # 168 x 1 x 1
+        self.tconv1 = nn.ConvTranspose2d(168, 1024, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
         self.tconv2 = nn.ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=1, bias=False)
@@ -142,15 +142,19 @@ class Discriminator(nn.Module):
         super().__init__()
         # 1 x 256 x 256
         self.conv1 = nn.Conv2d(1, 32, 4, 2, 1)
+        self.drop1 = nn.Dropout(0.25)
         # 32 x 128 x 128
         self.conv2 = nn.Conv2d(32, 64, 4, 2, 1, bias=False)
         self.bn2 = nn.BatchNorm2d(64)
+        self.drop2 = nn.Dropout(0.25)
         # 64 x 64 x 64
         self.conv3 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
         self.bn3 = nn.BatchNorm2d(128)
+        self.drop3 = nn.Dropout(0.25)
         # 128 x 32 x 32
         self.conv4 = nn.Conv2d(128, 256, 4, 2, 1, bias=False)
         self.bn4 = nn.BatchNorm2d(256)
+        self.drop4 = nn.Dropout(0.25)
         # 256 x 16 x 16
         self.conv5 = nn.Conv2d(256, 512, 4, 2, 1, bias=False)
         self.bn5 = nn.BatchNorm2d(512)
@@ -160,10 +164,10 @@ class Discriminator(nn.Module):
         # 1024 x 4 x 4
 
     def forward(self, x):
-        x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
-        x = F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True)
-        x = F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True)
-        x = F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True)
+        x = self.drop1(F.leaky_relu(self.conv1(x), 0.1, inplace=True))
+        x = self.drop2(F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True))
+        x = self.drop3(F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True))
+        x = self.drop4(F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True))
         x = F.leaky_relu(self.bn5(self.conv5(x)), 0.1, inplace=True)
         x = F.leaky_relu(self.bn6(self.conv6(x)), 0.1, inplace=True)
 
@@ -199,4 +203,4 @@ class QHead(nn.Module):
         var = torch.exp(self.conv_var(x).squeeze())
 
         return disc_logits, mu, var
-'''
+
