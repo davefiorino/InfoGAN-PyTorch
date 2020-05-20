@@ -5,10 +5,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from models.mnist_model import Generator
 from config import params
+from os import makedirs, path
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
 args = parser.parse_args()
+
+# create directory to save output
+if not path.isdir('output'):
+    makedirs('output') 
 
 # Load the checkpoint file
 state_dict = torch.load(args.load_path)
@@ -37,17 +42,18 @@ c3 = torch.cat((zeros, c), dim=1) # concatenate zeros and c (100 x 2 x 1 x 1)
 
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
 dis_c = torch.zeros(100, 10, 1, 1, device=device) # tensor of zeros (100 x 10 x 1 x 1)
-dis_c[torch.arange(0, 100), idx] = 1.0 # put 1.0 in all positions 
+dis_c[torch.arange(0, 100), idx] = 1.0 
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 
+
 z = torch.randn(100, 62, 1, 1, device=device) # random normal distributed values tensor (100 x 62 x 1 x 1)
+
 
 # To see variation along c2 (Horizontally) and c1 (Vertically)
 noise1 = torch.cat((z, c1, c2), dim=1) # 100 x 74 x 1 x 1
 # To see variation along c3 (Horizontally) and c1 (Vertically)
 noise2 = torch.cat((z, c1, c3), dim=1)
-
 
 
 # Generate image.
