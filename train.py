@@ -87,7 +87,7 @@ elif(params['dataset'] == 'FashionMNIST'):
 elif(params['dataset'] == 'ChestXRay'):
     params['num_z'] = 124
     params['num_dis_c'] = 1
-    params['dis_c_dim'] = 6
+    params['dis_c_dim'] = 10
     params['num_con_c'] = 4
 
 # Plot the training images.
