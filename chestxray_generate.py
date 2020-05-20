@@ -1,31 +1,27 @@
 import argparse
-
 import torch
 import torchvision.utils as vutils
 import numpy as np
 import matplotlib.pyplot as plt
+from models.chestxray_model import Generator
+from config import params
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
 args = parser.parse_args()
 
-from models.mnist_model import Generator
-from config import params
-
 # Load the checkpoint file
 state_dict = torch.load(args.load_path)
-
 # Set the device to run on: GPU or CPU.
 device = torch.device("cuda:0" if(torch.cuda.is_available()) else "cpu")
 # Get the 'params' dictionary from the loaded state_dict.
 params = state_dict['params']
-
 # Create the generator network.
 netG = Generator().to(device)
 # Load the trained generator weights.
 netG.load_state_dict(state_dict['netG'])
-if params['print_model_description']:
-    print(netG)
+
+
 
 c = np.linspace(-2, 2, 10).reshape(1, -1) # 10 evenly spaced numbers between -2 and 2. (1 x 10 vector) 
 c = np.repeat(c, 10, 0).reshape(-1, 1) # repeat each number in the array 10 times. (100 x 1 vector)
@@ -35,21 +31,28 @@ c = c.view(-1, 1, 1, 1) # tensor 100 x 1 x 1 x 1
 zeros = torch.zeros(100, 1, 1, 1, device=device) # tensor of zeros (100 x 1 x 1 x 1)
 
 # Continuous latent code.
-c2 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (200 x 1 x 1 x 1)
-c3 = torch.cat((zeros, c), dim=1) # concatenate zeros and c (200 x 1 x 1 x 1)
+c5 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (200 x 1 x 1 x 1)
+c6 = torch.cat((zeros, c), dim=1) # concatenate zeros and c (200 x 1 x 1 x 1)
+c7 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (200 x 1 x 1 x 1)
+c8 = torch.cat((zeros, c), dim=1) # concatenate zeros and c (200 x 1 x 1 x 1)
 
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
 dis_c = torch.zeros(100, 10, 1, 1, device=device) # tensor of zeros (100 x 10 x 1 x 1)
 dis_c[torch.arange(0, 100), idx] = 1.0 # put 1.0 in all positions 
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
+c2 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
+c3 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
+c4 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 
-z = torch.randn(100, 62, 1, 1, device=device) # random normal distributed values tensor (100 x 62 x 1 x 1)
+z = torch.randn(100, 124, 1, 1, device=device) # random normal distributed values tensor (100 x 124 x 1 x 1)
 
 # To see variation along c2 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c2), dim=1)
+noise1 = torch.cat((z, c1, c2, c3, c4, c5, c6, c7), dim=1)
 # To see variation along c3 (Horizontally) and c1 (Vertically)
-noise2 = torch.cat((z, c1, c3), dim=1)
+noise2 = torch.cat((z, c1, c2, c3, c4, c5, c6, c8), dim=1)
+
+
 
 # Generate image.
 with torch.no_grad():
