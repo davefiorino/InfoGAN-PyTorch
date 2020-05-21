@@ -22,6 +22,8 @@ parser.add_argument('-load_path', required=False, help='Checkpoint path to resum
 parser.add_argument('-reset_output', '-ro', required=False, action='store_true', help='Add this argument to clean the output folder')
 args = parser.parse_args()
 
+config.init()
+
 # create directory to save output
 if args.reset_output and path.isdir('output'):
     rmtree('output')
@@ -182,7 +184,6 @@ logFile.close()
 
 start_time = time.time()
 iters = 0
-config.init()
 
 for epoch in range(params['num_epochs']):
     epoch_start_time = time.time()
