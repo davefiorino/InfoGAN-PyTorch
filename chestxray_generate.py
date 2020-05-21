@@ -48,11 +48,11 @@ dis_c[torch.arange(0, 100), idx] = 1.0
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 
-z = torch.randn(100, 242, 1, 1, device=device) # random normal distributed values tensor (100 x 242 x 1 x 1)
+z = torch.randn(100, 124, 1, 1, device=device) # random normal distributed values tensor (100 x 124 x 1 x 1)
 
 
 # To see variation along c5-c6 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c5), dim=1) # 100 x 256 x 1 x 1
+noise1 = torch.cat((z, c1, c5), dim=1) # 100 x 164 x 1 x 1
 noise2 = torch.cat((z, c1, c6), dim=1)
 noise3 = torch.cat((z, c1, c7), dim=1)
 noise4 = torch.cat((z, c1, c8), dim=1)
