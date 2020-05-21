@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import config
 
 """
 Architecture by Davide Fiorino.
@@ -68,10 +69,17 @@ class Discriminator(nn.Module):
         # 1024 x 4 x 4
 
     def forward(self, x):
-        x = self.drop1(F.leaky_relu(self.conv1(x), 0.1, inplace=True))
-        x = self.drop2(F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True))
-        x = self.drop3(F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True))
-        x = self.drop4(F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True))
+        if config.currentEpoch < (config.params['num_epochs']/2) and config.params['use_dropout'] == True: # Use dropout only in the first half of training epochs
+            x = self.drop1(F.leaky_relu(self.conv1(x), 0.1, inplace=True))
+            x = self.drop2(F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True))
+            x = self.drop3(F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True))
+            x = self.drop4(F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True))
+        else:
+            x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
+            x = F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True)
+            x = F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True)
+            x = F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True)
+
         x = F.leaky_relu(self.bn5(self.conv5(x)), 0.1, inplace=True)
         x = F.leaky_relu(self.bn6(self.conv6(x)), 0.1, inplace=True)
 

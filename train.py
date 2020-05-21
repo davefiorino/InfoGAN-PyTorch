@@ -10,6 +10,7 @@ import random
 from models.mnist_model import Generator, Discriminator, DHead, QHead
 from dataloader import get_data
 from utils import *
+import config
 from config import params
 from mytorchsummary import summary
 import argparse
@@ -181,9 +182,11 @@ logFile.close()
 
 start_time = time.time()
 iters = 0
-    
+config.init()
+
 for epoch in range(params['num_epochs']):
     epoch_start_time = time.time()
+    config.currentEpoch = epoch
 
     for i, (data, _) in enumerate(dataloader, 0):
         # Get batch size
