@@ -9,8 +9,8 @@ Architecture by Davide Fiorino.
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-        # 138 x 1 x 1
-        self.tconv1 = nn.ConvTranspose2d(138, 1024, 4, bias=False)
+        # 256 x 1 x 1
+        self.tconv1 = nn.ConvTranspose2d(256, 1024, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
         self.tconv2 = nn.ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=1, bias=False)
@@ -94,7 +94,7 @@ class QHead(nn.Module):
         self.conv1 = nn.Conv2d(1024, 128, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(128)
 
-        self.conv_disc = nn.Conv2d(128, 40, 1)
+        self.conv_disc = nn.Conv2d(128, 10, 1)
         self.conv_mu = nn.Conv2d(128, 4, 1)
         self.conv_var = nn.Conv2d(128, 4, 1)
 
