@@ -48,7 +48,7 @@ dis_c[torch.arange(0, 100), idx] = 1.0
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 
-z = torch.randn(100, 124, 1, 1, device=device) # random normal distributed values tensor (100 x 124 x 1 x 1)
+z = torch.randn(100, 242, 1, 1, device=device) # random normal distributed values tensor (100 x 242 x 1 x 1)
 
 
 # To see variation along c5-c6 (Horizontally) and c1 (Vertically)
