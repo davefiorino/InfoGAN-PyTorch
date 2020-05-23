@@ -2,12 +2,12 @@ import torch
 import torchvision.transforms as transforms
 import torchvision.datasets as dsets
 
-dataset = datasets.ImageFolder(root='data/chest_xray/train', transform=transforms.Compose([transforms.Resize(256),
+dataset = dsets.ImageFolder(root='data/chest_xray/train', transform=transforms.Compose([transforms.Resize(256),
                              transforms.CenterCrop(256),
                              transforms.ToTensor()]))
 
-loader = data.DataLoader(dataset,
-                         batch_size=128,
+loader = torch.utils.data.DataLoader(dataset,
+                        batch_size=128,
                          num_workers=0,
                          shuffle=False)
 
