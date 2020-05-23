@@ -24,5 +24,5 @@ for images, _ in loader:
     batch_samples = images.size(0)
     images = images.view(batch_samples, images.size(1), -1)
     var += ((images - mean.unsqueeze(1))**2).sum([0,2])
-std = torch.sqrt(var / (len(loader.dataset)*224*224))
+std = torch.sqrt(var / (len(loader.dataset)*256*256))
 print(std)
