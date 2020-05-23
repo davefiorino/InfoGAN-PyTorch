@@ -1,5 +1,6 @@
 # Compute mean and std of the dataset
-# ChestXRay: mean=0.5711, std=0.1774
+# ChestXRay: mean=0.5711, std=0.1774 or std=0.1543
+
 import torch
 import torchvision.transforms as transforms
 import torchvision.datasets as dsets
@@ -30,19 +31,17 @@ loader = torch.utils.data.DataLoader(dataset,
 # print(std)
 
 
-import tensorflow as tf
-from PIL import ImageStat
+mean = 0.
+std = 0.
+for images, _ in loader:
+    batch_samples = images.size(0) # batch size (the last batch can have smaller size!)
+    images = images.view(batch_samples, images.size(1), -1)
+    mean += images.mean(2).sum(0)
+    std += images.std(2).sum(0)
 
-class Stats(ImageStat.Stat):
-    def __add__(self, other):
-        return Stats(list(map(add, self.h, other.h)))
+mean /= len(loader.dataset)
+std /= len(loader.dataset)
+print(mean)
+print(std)
 
-statistics = None
-for data in loader:
-    for b in range(data.shape[0]):
-        if statistics is None:
-            statistics = Stats(tf.to_pil_image(data[b]))
-        else:
-            statistics += Stats(tf.to_pil_image(data[b]))
 
-print(f'mean:{statistics.mean}, std:{statistics.stddev}')

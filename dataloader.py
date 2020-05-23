@@ -61,7 +61,7 @@ def get_data(dataset, batch_size):
             transforms.CenterCrop(256),
             transforms.Grayscale(num_output_channels=1),
             transforms.ToTensor(),
-            transforms.Normalize(mean=0.5711, std=0.1774)])
+            transforms.Normalize(mean=0.5711, std=0.1543)])
 
         dataset = dsets.ImageFolder(root=root+'chest_xray/train', transform=transform)
         print('Dataset len:', len(dataset))
