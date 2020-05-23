@@ -1,3 +1,5 @@
+# Compute mean and std of the dataset
+
 import torch
 import torchvision.transforms as transforms
 import torchvision.datasets as dsets
