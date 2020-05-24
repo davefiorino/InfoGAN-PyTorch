@@ -64,3 +64,22 @@ def noise_sample(n_dis_c, dis_c_dim, n_con_c, n_z, batch_size, device):
         noise = torch.cat((noise, con_c), dim=1)
 
     return noise, idx
+
+# UnNormalize images to display them correctly
+class UnNormalize(object):
+    def __init__(self, mean, std):
+        self.mean = mean
+        self.std = std
+
+    def __call__(self, tensor):
+        """
+        Args:
+            tensor (Tensor): Tensor image of size (BS, C, H, W) to be normalized.
+        Returns:
+            Tensor: Normalized image.
+        """
+        for image in tensor[0]:
+          for t, m, s in zip(image, self.mean, self.std):
+              t.mul_(s).add_(m)
+              # The normalize code -> t.sub_(m).div_(s)
+        return tensor

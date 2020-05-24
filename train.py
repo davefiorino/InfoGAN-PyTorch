@@ -16,7 +16,6 @@ from mytorchsummary import summary
 import argparse
 from os import makedirs, path
 from shutil import copyfile, rmtree
-from dataset_stats import UnNormalize
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=False, help='Checkpoint path to resume training')
