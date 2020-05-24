@@ -1,5 +1,5 @@
 # Compute mean and std of the dataset
-# ChestXRay: mean=0.5711, std=0.1774 or std=0.1543
+# ChestXRay: mean=0.5711, std=0.1774 
 
 import torch
 import torchvision.transforms as transforms
@@ -14,37 +14,25 @@ loader = torch.utils.data.DataLoader(dataset,
                          num_workers=0,
                          shuffle=False)
 
-# mean = 0.0
-# for images, _ in loader:
-#     batch_samples = images.size(0) 
-#     images = images.view(batch_samples, images.size(1), -1)
-#     mean += images.mean(2).sum(0)
-# mean = mean / len(loader.dataset)
-# print(mean)
-
-# var = 0.0
-# for images, _ in loader:
-#     batch_samples = images.size(0)
-#     images = images.view(batch_samples, images.size(1), -1)
-#     var += ((images - mean.unsqueeze(1))**2).sum([0,2])
-# std = torch.sqrt(var / (len(loader.dataset)*256*256))
-# print(std)
-
-
-mean = 0.
-std = 0.
+mean = 0.0
 for images, _ in loader:
-    batch_samples = images.size(0) # batch size (the last batch can have smaller size!)
+    batch_samples = images.size(0) 
     images = images.view(batch_samples, images.size(1), -1)
     mean += images.mean(2).sum(0)
-    std += images.std(2).sum(0)
-
-mean /= len(loader.dataset)
-std /= len(loader.dataset)
+mean = mean / len(loader.dataset)
 print(mean)
+
+var = 0.0
+for images, _ in loader:
+    batch_samples = images.size(0)
+    images = images.view(batch_samples, images.size(1), -1)
+    var += ((images - mean.unsqueeze(1))**2).sum([0,2])
+std = torch.sqrt(var / (len(loader.dataset)*256*256))
 print(std)
 
 
+
+# UnNormalize images to display them correctly
 class UnNormalize(object):
     def __init__(self, mean, std):
         self.mean = mean
