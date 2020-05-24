@@ -280,8 +280,8 @@ for epoch in range(params['num_epochs']):
     if (epoch+1) == 1 or (epoch+1) % params['image_log_epoch'] == 0:
         with torch.no_grad():
             gen_data = netG(fixed_noise).detach().cpu()
-            unorm = UnNormalize(mean=(0.5711,0.5711,0.5711), std=(0.1774,0.1774,0.1774))
-            unorm(gen_data)
+            # unorm = UnNormalize(mean=(0.5711,0.5711,0.5711), std=(0.1774,0.1774,0.1774))
+            # unorm(gen_data)
         plt.figure(figsize=(10, 10))
         plt.axis("off")
         plt.imshow(np.transpose(vutils.make_grid(gen_data, nrow=10, padding=2, normalize=True), (1,2,0)))

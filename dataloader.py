@@ -60,8 +60,8 @@ def get_data(dataset, batch_size):
             transforms.Resize(256),
             transforms.CenterCrop(256),
             transforms.Grayscale(num_output_channels=1),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=0.5711, std=0.1774)
+            transforms.ToTensor()
+            # transforms.Normalize(mean=0.5711, std=0.1774)
             ])
 
         dataset = dsets.ImageFolder(root=root+'chest_xray/train', transform=transform)
