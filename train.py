@@ -92,7 +92,7 @@ elif(params['dataset'] == 'ChestXRay'):
     params['num_z'] = 100
     params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
-    params['num_con_c'] = 4
+    params['num_con_c'] = 2
 
 # Plot the training images.
 sample_batch = next(iter(dataloader))

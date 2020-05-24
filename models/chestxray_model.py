@@ -10,8 +10,8 @@ Architecture by Davide Fiorino.
 class Generator(nn.Module):
     def __init__(self):
         super().__init__()
-        # 114 x 1 x 1
-        self.tconv1 = nn.ConvTranspose2d(114, 1024, 4, bias=False)
+        # 112 x 1 x 1
+        self.tconv1 = nn.ConvTranspose2d(112, 1024, 4, bias=False)
         self.bn1 = nn.BatchNorm2d(1024)
         # 1024 x 4 x 4
         self.tconv2 = nn.ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=1, bias=False)

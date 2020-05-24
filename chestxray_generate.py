@@ -36,10 +36,8 @@ c = c.view(-1, 1, 1, 1) # tensor 100 x 1 x 1 x 1
 zeros = torch.zeros(100, 1, 1, 1, device=device) # tensor of zeros (100 x 1 x 1 x 1)
 
 # Continuous latent code.
-c5 = torch.cat((c, zeros, zeros, zeros), dim=1) # concatenate c and zeros (100 x 4 x 1 x 1)
-c6 = torch.cat((zeros, c, zeros, zeros), dim=1) # concatenate c and zeros (100 x 4 x 1 x 1)
-c7 = torch.cat((zeros, zeros, c, zeros), dim=1) # concatenate c and zeros (100 x 4 x 1 x 1)
-c8 = torch.cat((zeros, zeros, zeros, c), dim=1) # concatenate c and zeros (100 x 4 x 1 x 1)
+c5 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
+c6 = torch.cat((zeros, c), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
 
 
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
@@ -52,11 +50,8 @@ z = torch.randn(100, 100, 1, 1, device=device) # random normal distributed value
 
 
 # To see variation along c5-c6 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c5), dim=1) # 100 x 114 x 1 x 1
+noise1 = torch.cat((z, c1, c5), dim=1) # 100 x 112 x 1 x 1
 noise2 = torch.cat((z, c1, c6), dim=1)
-noise3 = torch.cat((z, c1, c7), dim=1)
-noise4 = torch.cat((z, c1, c8), dim=1)
-
 
 # Generate image.
 with torch.no_grad():
@@ -76,20 +71,4 @@ fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, normalize=True), (1,2,0)))
 plt.savefig("output/generated_2")
-plt.show()
-
-with torch.no_grad():
-    generated_img3 = netG(noise3).detach().cpu()
-fig = plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img3, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("output/generated_3")
-plt.show()
-
-with torch.no_grad():
-    generated_img4 = netG(noise4).detach().cpu()
-fig = plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img4, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("output/generated_4")
 plt.show()
