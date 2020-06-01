@@ -51,8 +51,8 @@ class Discriminator(nn.Module):
 class DHead(nn.Module):
     def __init__(self):
         super().__init__()
-
         self.conv = nn.Conv2d(1024, 1, 1)
+        # 1 x 1 x 1
 
     def forward(self, x):
         output = torch.sigmoid(self.conv(x))
@@ -79,3 +79,4 @@ class QHead(nn.Module):
         var = torch.exp(self.conv_var(x).squeeze())
 
         return disc_logits, mu, var
+        # [10], [2], [2] 

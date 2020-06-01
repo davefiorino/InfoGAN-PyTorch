@@ -115,3 +115,4 @@ class QHead(nn.Module):
         var = torch.exp(self.conv_var(x).squeeze())
 
         return disc_logits, mu, var
+        # [10], [2], [2] 
