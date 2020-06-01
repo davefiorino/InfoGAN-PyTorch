@@ -50,7 +50,7 @@ def get_data(dataset, batch_size):
             transforms.Normalize((0.5, 0.5, 0.5),
                 (0.5, 0.5, 0.5))])
 
-        dataset = dsets.CelebA(root+'celeba/', split='train', target_type='',
+        dataset = dsets.CelebA(root+'celeba/', split='train',
                                 download=True, transform=transform)
         #dataset = dsets.ImageFolder(root=root+'celeba/', transform=transform)
         print('Dataset len:', len(dataset))
