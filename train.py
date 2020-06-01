@@ -125,10 +125,10 @@ if params['print_model_description']:
     summary(discriminator, input_size=(dataset_shape[0], dataset_shape[1], dataset_shape[2]), log_file=logFile)
     print(netD)
     logFile.write(netD.__repr__() + '\n')
-    summary(netD, input_size=(1024, 4, 4), log_file=logFile)
+    #summary(netD, input_size=(1024, 4, 4), log_file=logFile) # Must set the right input size manually
     print(netQ)
     logFile.write(netQ.__repr__() + '\n')
-    summary(netQ, input_size=(1024, 4, 4), log_file=logFile)
+    #summary(netQ, input_size=(1024, 4, 4), log_file=logFile) # Must set the right input size manually
 
 # Loss for discrimination between real and fake images.
 criterionD = nn.BCELoss()
