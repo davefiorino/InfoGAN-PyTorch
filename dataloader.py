@@ -57,11 +57,10 @@ def get_data(dataset, batch_size):
     # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
     elif dataset == 'ChestXRay':
         transform = transforms.Compose([
-            transforms.Resize(28), #256
-            transforms.CenterCrop(28),
+            transforms.Resize(256),
+            transforms.CenterCrop(256),
             transforms.Grayscale(num_output_channels=1),
             transforms.ToTensor()
-            # transforms.Normalize(mean=0.5711, std=0.1774)
             ])
 
         dataset = dsets.ImageFolder(root=root+'chest_xray/train', transform=transform)
