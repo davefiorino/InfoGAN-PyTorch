@@ -7,7 +7,7 @@ params = {
     'beta1': 0.5, # Momentum parameter
     'beta2': 0.999, # RMSprop parameter
     'save_epoch' : 20, # After how many epochs to save checkpoints
-    'dataset' : 'ChestXRay', # Choose from {MNIST, SVHN, CelebA, FashionMNIST, ChestXRay}
+    'dataset' : 'CelebA', # Choose from {MNIST, SVHN, CelebA, FashionMNIST, ChestXRay}
     'print_model_description' : True, # Print the description of the models during training and generation
     'image_log_epoch': 10, # Save a generated image every X epochs
     'use_dropout': True # Use dropout layers in the first half epochs
