@@ -44,8 +44,8 @@ def get_data(dataset, batch_size):
     # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
     elif dataset == 'CelebA':
         transform = transforms.Compose([
-            transforms.Resize(32),
-            transforms.CenterCrop(32),
+            transforms.Resize(128),
+            transforms.CenterCrop(128),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5),
                 (0.5, 0.5, 0.5))])
