@@ -50,7 +50,7 @@ def get_data(dataset, batch_size):
             transforms.Normalize((0.5, 0.5, 0.5),
                 (0.5, 0.5, 0.5))])
 
-        dataset = dsets.ImageFolder(root=root+'celeba/', transform=transform)
+        dataset = dsets.ImageFolder(root=root+'img_align_celeba/', transform=transform)
         print('Dataset len:', len(dataset))
 
     # Get ChestXRay dataset.
