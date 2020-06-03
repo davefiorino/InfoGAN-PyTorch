@@ -27,28 +27,30 @@ netG = Generator().to(device)
 netG.load_state_dict(state_dict['netG'])
 
 
+c = np.linspace(-2, 2, 10).reshape(1, -1) # 10 evenly spaced numbers between -2 and 2. (1 x 10 vector) 
+c = np.repeat(c, 10, 0).reshape(-1, 1) # repeat each number in the array 10 times. (100 x 1 vector)
+c = torch.from_numpy(c).float().to(device)
+c = c.view(-1, 1, 1, 1) # tensor 100 x 1 x 1 x 1
+
+zeros = torch.zeros(100, 1, 1, 1, device=device) # tensor of zeros (100 x 1 x 1 x 1)
+
+# Continuous latent code.
+c2 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
+c3 = torch.cat((zeros, c), dim=1) # concatenate zeros and c (100 x 2 x 1 x 1)
+
 
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
 dis_c = torch.zeros(100, 10, 1, 1, device=device) # tensor of zeros (100 x 10 x 1 x 1)
 dis_c[torch.arange(0, 100), idx] = 1.0 
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c2 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c3 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c4 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c5 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c6 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c7 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c8 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c9 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c10 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 
 
-z = torch.randn(100, 128, 1, 1, device=device) # random normal distributed values tensor (100 x 128 x 1 x 1)
+z = torch.randn(100, 62, 1, 1, device=device) # random normal distributed values tensor (100 x 62 x 1 x 1)
 
 
 # To see variation along c2 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c2), dim=1) # 100 x 228 x 1 x 1
+noise1 = torch.cat((z, c1, c2), dim=1) # 100 x 74 x 1 x 1
 # To see variation along c3 (Horizontally) and c1 (Vertically)
 noise2 = torch.cat((z, c1, c3), dim=1)
 
