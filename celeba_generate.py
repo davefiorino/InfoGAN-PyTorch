@@ -31,11 +31,11 @@ netG.load_state_dict(state_dict['netG'])
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
 dis_c = torch.zeros(100, 10, 10, 1, device=device) # tensor of zeros (100 x 10 x 10 x 1)
 
-for i in [0,1]:
+for i in [0,1]: # indexes of codes that you want to vary from 0 to 9
     dis_c[torch.arange(0, 100), i, idx] = 1.0 
 
 idx2 = np.zeros(100)
-for i in [2,3,4,5,6,7,8,9]:
+for i in [2,3,4,5,6,7,8,9]: # indexes of codes that you want to keep fixed at 0
     dis_c[torch.arange(0, 100), i, idx2] = 1.0 
 
 
