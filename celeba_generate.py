@@ -35,7 +35,7 @@ dis_c[torch.arange(0, 100), idx] = 1.0
 c = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 
 
-zeros = torch.zeros(100, 1, 1, 1, device=device)
+zeros = torch.zeros(100, 10, 1, 1, device=device)
 c1 = torch.cat((c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
 c2 = torch.cat((zeros, c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
 c3 = torch.cat((zeros, zeros, c, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
@@ -45,7 +45,7 @@ z = torch.randn(100, 128, 1, 1, device=device) # random normal distributed value
 
 
 # To see variation along c2 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c2), dim=1) # 100 x 228 x 1 x 1
+noise1 = torch.cat((z, c1, c2), dim=1) # 100 x 166 x 1 x 1
 # To see variation along c3 (Horizontally) and c1 (Vertically)
 noise2 = torch.cat((z, c1, c3), dim=1)
 
