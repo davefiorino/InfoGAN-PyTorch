@@ -151,18 +151,18 @@ if args.load_path:
     optimD.load_state_dict(checkpoint['optimD'])
     optimG.load_state_dict(checkpoint['optimG'])
 
-# Fixed Noise
-z = torch.randn(100, params['num_z'], 1, 1, device=device)
+# Fixed Noise  (comment dimensions are for MNIST)
+z = torch.randn(100, params['num_z'], 1, 1, device=device) # tensor of random numebers. 100 x 62 x 1 x 1
 fixed_noise = z
 if(params['num_dis_c'] != 0):
-    idx = np.arange(params['dis_c_dim']).repeat(10)
-    dis_c = torch.zeros(100, params['num_dis_c'], params['dis_c_dim'], device=device)
-    for i in range(params['num_dis_c']):
-        dis_c[torch.arange(0, 100), i, idx] = 1.0
-    dis_c = dis_c.view(100, -1, 1, 1)
-    fixed_noise = torch.cat((fixed_noise, dis_c), dim=1)
+    idx = np.arange(params['dis_c_dim']).repeat(10) # array of numbers from 0 to 10, repeated 10 times [0,0,0,0(x10) .... ,1,1,1,1(x10)... 9] (100 elements)
+    dis_c = torch.zeros(100, params['num_dis_c'], params['dis_c_dim'], device=device) # tensor of zeros. 100 x 1 x 10
+    for i in range(params['num_dis_c']): # i = 0
+        dis_c[torch.arange(0, 100), i, idx] = 1.0 # disc_c[ [0,...99] , 0 , idx ] = 1.0
+    dis_c = dis_c.view(100, -1, 1, 1) # 100 x 10 x 1 x 1
+    fixed_noise = torch.cat((fixed_noise, dis_c), dim=1) 
 if(params['num_con_c'] != 0):
-    con_c = torch.rand(100, params['num_con_c'], 1, 1, device=device) * 2 - 1
+    con_c = torch.rand(100, params['num_con_c'], 1, 1, device=device) * 2 - 1  # 100 x 2 x 1 x 1
     fixed_noise = torch.cat((fixed_noise, con_c), dim=1)
 
 real_label = 1
