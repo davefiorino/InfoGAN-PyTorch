@@ -36,8 +36,8 @@ c = c.view(-1, 1, 1, 1) # tensor 100 x 1 x 1 x 1
 zeros = torch.zeros(100, 1, 1, 1, device=device) # tensor of zeros (100 x 1 x 1 x 1)
 
 # Continuous latent code.
-c5 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
-c6 = torch.cat((zeros, c), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
+c2 = torch.cat((c, zeros), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
+c3 = torch.cat((zeros, c), dim=1) # concatenate c and zeros (100 x 2 x 1 x 1)
 
 
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
@@ -49,9 +49,9 @@ c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 z = torch.randn(100, 100, 1, 1, device=device) # random normal distributed values tensor (100 x 100 x 1 x 1) The second 100 is num_z
 
 
-# To see variation along c5-c6 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c5), dim=1) # 100 x 112 x 1 x 1
-noise2 = torch.cat((z, c1, c6), dim=1)
+# To see variation along c2-c3 (Horizontally) and c1 (Vertically)
+noise1 = torch.cat((z, c1, c2), dim=1) # 100 x 112 x 1 x 1
+noise2 = torch.cat((z, c1, c3), dim=1)
 
 # Generate image.
 with torch.no_grad():
