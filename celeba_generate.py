@@ -30,11 +30,14 @@ netG.load_state_dict(state_dict['netG'])
 
 idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
 dis_c = torch.zeros(100, 10, 10, 1, device=device) # tensor of zeros (100 x 10 x 10 x 1)
-dis_c[torch.arange(0, 100), idx, 0] = 1.0 
-dis_c[torch.arange(0, 100), idx, 1] = 1.0 
+
+for i in [0,1]:
+    dis_c[torch.arange(0, 100), idx, i] = 1.0 
 
 idx2 = np.zeros(100)
-dis_c[torch.arange(0, 100), idx2, [2,3,4,5,6,7,8,9]] = 1.0 
+for i in [2,3,4,5,6,7,8,9]:
+    dis_c[torch.arange(0, 100), idx2, i] = 1.0 
+
 
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 100 x 1 x 1
