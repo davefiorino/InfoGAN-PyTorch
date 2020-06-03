@@ -9,6 +9,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
 args = parser.parse_args()
 
+# create directory to save output
+if not path.isdir('output'):
+    makedirs('output') 
+
 from models.mnist_model import Generator
 
 # Load the checkpoint file
@@ -56,6 +60,7 @@ with torch.no_grad():
 fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
+plt.savefig("output/generated_1")
 plt.show()
 
 # Generate image.
@@ -65,4 +70,5 @@ with torch.no_grad():
 fig = plt.figure(figsize=(10, 10))
 plt.axis("off")
 plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, normalize=True), (1,2,0)))
+plt.savefig("output/generated_2")
 plt.show()
