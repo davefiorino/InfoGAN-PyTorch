@@ -38,33 +38,30 @@ c = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
 zeros = torch.zeros(100, 10, 1, 1, device=device)
 c1 = torch.cat((c, c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
 c2 = torch.cat((c, zeros, c, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
-
+c3 = torch.cat((c, zeros, zeros, c, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
+c4 = torch.cat((c, zeros, zeros, zeros, c, zeros, zeros, zeros, zeros, zeros), dim=1)
+c5 = torch.cat((c, zeros, zeros, zeros, zeros, c, zeros, zeros, zeros, zeros), dim=1)
+c6 = torch.cat((c, zeros, zeros, zeros, zeros, zeros, c, zeros, zeros, zeros), dim=1)
+c7 = torch.cat((c, zeros, zeros, zeros, zeros, zeros, zeros, c, zeros, zeros), dim=1)
+c8 = torch.cat((c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, c, zeros), dim=1)
+c9 = torch.cat((c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros, c), dim=1)
+codes = [c1, c2, c3, c4, c5, c6, c7, c8, c9]
 
 z = torch.randn(100, 128, 1, 1, device=device) # random normal distributed values tensor (100 x 128 x 1 x 1)
 
 
-# To see variation along c2 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1), dim=1) # 100 x 166 x 1 x 1
-# To see variation along c3 (Horizontally) and c1 (Vertically)
-noise2 = torch.cat((z, c2), dim=1)
 
+# Generate images
+for code in codes:
+    i = 1
+    noise = torch.cat((z, code), dim=1) # 100 x 228 x 1 x 1
+    with torch.no_grad():
+        generated_img1 = netG(noise).detach().cpu()
+    # Display the generated image.
+    fig = plt.figure(figsize=(10, 10))
+    plt.axis("off")
+    plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
+    plt.savefig("output/generated_" + str(i))
+    i += 1
+    plt.show()
 
-# Generate image.
-with torch.no_grad():
-    generated_img1 = netG(noise1).detach().cpu()
-# Display the generated image.
-fig = plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img1, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("output/generated_1")
-plt.show()
-
-# Generate image.
-with torch.no_grad():
-    generated_img2 = netG(noise2).detach().cpu()
-# Display the generated image.
-fig = plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("output/generated_2")
-plt.show()
