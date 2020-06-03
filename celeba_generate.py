@@ -52,8 +52,8 @@ z = torch.randn(100, 128, 1, 1, device=device) # random normal distributed value
 
 
 # Generate images
+i = 1
 for code in codes:
-    i = 1
     noise = torch.cat((z, code), dim=1) # 100 x 228 x 1 x 1
     with torch.no_grad():
         generated_img1 = netG(noise).detach().cpu()
