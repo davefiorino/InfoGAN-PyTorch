@@ -1,9 +1,10 @@
 import argparse
-
 import torch
 import torchvision.utils as vutils
 import numpy as np
 import matplotlib.pyplot as plt
+from models.mnist_model import Generator
+from os import makedirs, path
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
@@ -13,7 +14,6 @@ args = parser.parse_args()
 if not path.isdir('output'):
     makedirs('output') 
 
-from models.mnist_model import Generator
 
 # Load the checkpoint file
 state_dict = torch.load(args.load_path)
