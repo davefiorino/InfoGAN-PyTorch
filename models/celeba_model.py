@@ -43,12 +43,15 @@ class Discriminator(nn.Module):
 		super().__init__()
 		# 3 x 128 x 128
 		self.conv1 = nn.Conv2d(3, 16, 4, 2, 1)
+		self.drop1 = nn.Dropout(0.25)
 		# 16 x 64 x 64
 		self.conv2 = nn.Conv2d(16, 32, 4, 2, 1)
 		self.bn2 = nn.BatchNorm2d(32)
+		self.drop2 = nn.Dropout(0.25)
 		# 32 x 32 x 32
 		self.conv3 = nn.Conv2d(32, 64, 4, 2, 1)
 		self.bn3 = nn.BatchNorm2d(64)
+		self.drop3 = nn.Dropout(0.25)
 		# 64 x 16 x 16
 		self.conv4 = nn.Conv2d(64, 128, 4, 2, 1, bias=False)
 		self.bn4 = nn.BatchNorm2d(128)
@@ -58,11 +61,18 @@ class Discriminator(nn.Module):
 		# 256 x 4 x 4
 
 	def forward(self, x):
-		x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
-		x = F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True)
-		x = F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True)
+		if config.currentEpoch < (config.params['num_epochs']/2) and config.params['use_dropout'] == True: # Use dropout only in the first half of training epochs
+			x = self.drop1(F.leaky_relu(self.conv1(x), 0.1, inplace=True))
+			x = self.drop2(F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True))
+			x = self.drop3(F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True))
+		else:
+			x = F.leaky_relu(self.conv1(x), 0.1, inplace=True)
+			x = F.leaky_relu(self.bn2(self.conv2(x)), 0.1, inplace=True)
+			x = F.leaky_relu(self.bn3(self.conv3(x)), 0.1, inplace=True)
+
 		x = F.leaky_relu(self.bn4(self.conv4(x)), 0.1, inplace=True)
 		x = F.leaky_relu(self.bn5(self.conv5(x)), 0.1, inplace=True)
+
 		return x
 
 
