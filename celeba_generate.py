@@ -32,16 +32,13 @@ idx = np.arange(10).repeat(10) # integers from 0 to 9, each repeated 10 times
 dis_c = torch.zeros(100, 10, 1, 1, device=device) # tensor of zeros (100 x 10 x 1 x 1)
 dis_c[torch.arange(0, 100), idx] = 1.0 
 # Discrete latent code.
-c1 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c2 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c3 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c4 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c5 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c6 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c7 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c8 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c9 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
-c10 = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
+c = dis_c.view(100, -1, 1, 1) # tensor 100 x 10 x 1 x 1
+
+
+zeros = torch.zeros(100, 1, 1, 1, device=device)
+c1 = torch.cat((c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
+c2 = torch.cat((zeros, c, zeros, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
+c3 = torch.cat((zeros, zeros, c, zeros, zeros, zeros, zeros, zeros, zeros, zeros), dim=1)
 
 
 z = torch.randn(100, 128, 1, 1, device=device) # random normal distributed values tensor (100 x 128 x 1 x 1)
