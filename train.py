@@ -252,7 +252,7 @@ for epoch in range(params['num_epochs']):
 
         # Check progress of training.
         if i != 0 and i%10 == 0:
-            print('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tdis_loss: %.4f\tcon_loss: %.4f'
+            print('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tdis_loss: %.4f  con_loss: %.4f'
                   % (epoch+1, params['num_epochs'], i, len(dataloader), 
                     D_loss.item(), G_loss.item(), dis_loss, con_loss))
             logFile = open("output/log.txt", "a")
