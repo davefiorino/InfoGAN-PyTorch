@@ -333,9 +333,9 @@ plt.savefig("output/Loss Curve {}".format(params['dataset']))
 
 # Animation showing the improvements of the generator.
 # bug with matplotlib 3.2.1 https://github.com/matplotlib/matplotlib/issues/17097
-fig = plt.figure(figsize=(10,10))
-plt.axis("off")
-ims = [[plt.imshow(np.transpose(i,(1,2,0)), animated=True)] for i in img_list]
-anim = animation.ArtistAnimation(fig, ims, interval=1000, repeat_delay=1000, blit=True)
-anim.save('output/infoGAN_{}.gif'.format(params['dataset']), dpi=80, writer='imagemagick')
-plt.show()
+# fig = plt.figure(figsize=(10,10))
+# plt.axis("off")
+# ims = [[plt.imshow(np.transpose(i,(1,2,0)), animated=True)] for i in img_list]
+# anim = animation.ArtistAnimation(fig, ims, interval=1000, repeat_delay=1000, blit=True)
+# anim.save('output/infoGAN_{}.gif'.format(params['dataset']), dpi=80, writer='imagemagick')
+# plt.show()
