@@ -200,7 +200,7 @@ for epoch in range(params['num_epochs']):
         # Updating discriminator and DHead
         optimD.zero_grad()
         # Real data
-        label = torch.full((b_size, ), real_label, device=device)
+        label = torch.full((b_size, ), real_label, device=device, dtype=torch.float32)
         output1 = discriminator(real_data)
         probs_real = netD(output1).view(-1)
         loss_real = criterionD(probs_real, label)
@@ -252,11 +252,11 @@ for epoch in range(params['num_epochs']):
 
         # Check progress of training.
         if i != 0 and i%10 == 0:
-            print('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tdis_loss: %.4f\tcon_loss: %.4f\t'
+            print('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tdis_loss: %.4f\tcon_loss: %.4f'
                   % (epoch+1, params['num_epochs'], i, len(dataloader), 
                     D_loss.item(), G_loss.item(), dis_loss, con_loss))
             logFile = open("output/log.txt", "a")
-            logFile.write('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tdis_loss: %.4f\tcon_loss: %.4f\t'
+            logFile.write('\n[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tdis_loss: %.4f\tcon_loss: %.4f'
                   % (epoch+1, params['num_epochs'], i, len(dataloader), 
                     D_loss.item(), G_loss.item(), dis_loss, con_loss))
             logFile.close()
