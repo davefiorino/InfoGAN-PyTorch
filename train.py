@@ -181,6 +181,7 @@ logFile.write("-"*25)
 logFile.write("\nStarting Training Loop...\n")
 logFile.write('Epochs: %d\nDataset: {}\nBatch Size: %d\nLength of Data Loader: %d \n'.format(params['dataset']) % (params['num_epochs'], params['batch_size'], len(dataloader)))
 logFile.write('Learning rate D: %f\nLearning rate G: %f\nBeta 1: %f\nBeta 2: %f\n' % (params['learning_rate_D'], params['learning_rate_G'], params['beta1'], params['beta2']))
+logFile.write('Dropout: %r\n' % (params['use_dropout']))
 logFile.write("-"*25)
 logFile.close()
 
