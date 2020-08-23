@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from models.mnist_model import Generator
 from os import makedirs, path, mkdir
+import shutil
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
@@ -76,6 +77,7 @@ plt.show()
 
 if (args.save1k) == True:
 
+    shutil.rmtree('output/imgs', ignore_errors=True)
     try: mkdir('output/imgs')
     except OSError: pass
 
