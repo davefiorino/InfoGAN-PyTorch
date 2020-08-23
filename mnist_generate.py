@@ -92,16 +92,16 @@ if (args.save1k) == True:
             generated_img1 = netG(noise1).detach().cpu()
 
         for j in range(generated_img1.shape[0]):
-        fig = plt.figure(figsize=(1, 1), dpi=28)
-        plt.axis("off")
-        plt.imshow((generated_img1[j])[0], cmap='gray')
-        plt.savefig("output/imgs/generated_%d-1-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
+            fig = plt.figure(figsize=(1, 1), dpi=28)
+            plt.axis("off")
+            plt.imshow((generated_img1[j])[0], cmap='gray')
+            plt.savefig("output/imgs/generated_%d-1-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
 
         with torch.no_grad():
             generated_img2 = netG(noise2).detach().cpu()
 
         for j in range(generated_img2.shape[0]):
-        fig = plt.figure(figsize=(1, 1), dpi=28)
-        plt.axis("off")
-        plt.imshow((generated_img2[j])[0], cmap='gray')
-        plt.savefig("output/imgs/generated_%d-2-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
+            fig = plt.figure(figsize=(1, 1), dpi=28)
+            plt.axis("off")
+            plt.imshow((generated_img2[j])[0], cmap='gray')
+            plt.savefig("output/imgs/generated_%d-2-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
