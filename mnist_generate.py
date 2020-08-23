@@ -74,35 +74,33 @@ plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, nor
 plt.savefig("output/generated_2")
 plt.show()
 
-if (args.save1k) == True
+if (args.save1k) == True:
 
-    try:
-        os.mkdir('output/imgs')
-    except OSError:
-        pass
+    try: os.mkdir('output/imgs')
+    except OSError: pass
 
-  print("\nSaving 1000 figures...\n")
-  # Generate and save 1000 images
-  for i in range(5):
-      z = torch.randn(100, 62, 1, 1, device=device)
-      # To see variation along c2 (Horizontally) and c1 (Vertically)
-      noise1 = torch.cat((z, c1, c2), dim=1)
-      # To see variation along c3 (Horizontally) and c1 (Vertically)
-      noise2 = torch.cat((z, c1, c3), dim=1)
+    print("\nSaving 1000 figures...\n")
+    # Generate and save 1000 images
+    for i in range(5):
+        z = torch.randn(100, 62, 1, 1, device=device)
+        # To see variation along c2 (Horizontally) and c1 (Vertically)
+        noise1 = torch.cat((z, c1, c2), dim=1)
+        # To see variation along c3 (Horizontally) and c1 (Vertically)
+        noise2 = torch.cat((z, c1, c3), dim=1)
 
-      with torch.no_grad():
-          generated_img1 = netG(noise1).detach().cpu()
+        with torch.no_grad():
+            generated_img1 = netG(noise1).detach().cpu()
 
-      for j in range(generated_img1.shape[0]):
+        for j in range(generated_img1.shape[0]):
         fig = plt.figure(figsize=(1, 1), dpi=28)
         plt.axis("off")
         plt.imshow((generated_img1[j])[0], cmap='gray')
         plt.savefig("output/imgs/generated_%d-1-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
 
-      with torch.no_grad():
-          generated_img2 = netG(noise2).detach().cpu()
+        with torch.no_grad():
+            generated_img2 = netG(noise2).detach().cpu()
 
-      for j in range(generated_img2.shape[0]):
+        for j in range(generated_img2.shape[0]):
         fig = plt.figure(figsize=(1, 1), dpi=28)
         plt.axis("off")
         plt.imshow((generated_img2[j])[0], cmap='gray')
