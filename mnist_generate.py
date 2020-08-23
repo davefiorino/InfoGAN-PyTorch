@@ -4,7 +4,7 @@ import torchvision.utils as vutils
 import numpy as np
 import matplotlib.pyplot as plt
 from models.mnist_model import Generator
-from os import makedirs, path
+from os import makedirs, path, mkdir
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', required=True, help='Checkpoint to load path from')
@@ -76,7 +76,7 @@ plt.show()
 
 if (args.save1k) == True:
 
-    try: os.mkdir('output/imgs')
+    try: mkdir('output/imgs')
     except OSError: pass
 
     print("\nSaving 1000 figures...\n")
