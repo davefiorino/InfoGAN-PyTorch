@@ -68,10 +68,10 @@ print("Dataset element shape: ", dataloader.dataset[0][0].shape, '\n')
 # dis_c_dim : dimension of discrete latent code.
 # num_con_c : number of continuous latent code used.
 if(params['dataset'] == 'MNIST'):
-    params['num_z'] = 62 #62
+    params['num_z'] = 62 
     params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
-    params['num_con_c'] = 2 #2
+    params['num_con_c'] = 2 
 elif(params['dataset'] == 'SVHN'):
     params['num_z'] = 124
     params['num_dis_c'] = 4
@@ -83,7 +83,7 @@ elif(params['dataset'] == 'CelebA'):
     params['dis_c_dim'] = 10
     params['num_con_c'] = 0
 elif(params['dataset'] == 'FashionMNIST'):
-    params['num_z'] = 62
+    params['num_z'] = 100 #62 
     params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
     params['num_con_c'] = 2

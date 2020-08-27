@@ -48,7 +48,8 @@ dis_c[torch.arange(0, 100), idx] = 1.0
 # Discrete latent code.
 c1 = dis_c.view(100, -1, 1, 1)
 
-z = torch.randn(100, 62, 1, 1, device=device) # torch.randn(100, 62, 1, 1, device=device)
+# z = torch.randn(100, 62, 1, 1, device=device)
+z = torch.randn(100, 100, 1, 1, device=device) 
 
 # To see variation along c2 (Horizontally) and c1 (Vertically)
 noise1 = torch.cat((z, c1, c2), dim=1)
@@ -85,7 +86,8 @@ if (args.save1k) == True:
     print("\nSaving 1000 figures...\n")
     # Generate and save 1000 images
     for i in range(5):
-        z = torch.randn(100, 62, 1, 1, device=device)
+        # z = torch.randn(100, 62, 1, 1, device=device)
+        z = torch.randn(100, 100, 1, 1, device=device) 
         # To see variation along c2 (Horizontally) and c1 (Vertically)
         noise1 = torch.cat((z, c1, c2), dim=1)
         # To see variation along c3 (Horizontally) and c1 (Vertically)
