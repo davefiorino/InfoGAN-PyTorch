@@ -41,9 +41,8 @@ zeros = torch.zeros(100, 1, 1, 1, device=device)
 # Continuous latent code.
 # c2 = torch.cat((c, zeros), dim=1)
 # c3 = torch.cat((zeros, c), dim=1)
-c2 = torch.cat((c, zeros, zeros), dim=1)
-c3 = torch.cat((zeros, c, zeros), dim=1)
-c4 = torch.cat((zeros, zeros, c), dim=1)
+c2 = torch.cat((c, zeros), dim=1)
+c3 = torch.cat((zeros, c), dim=1)
 
 idx = np.arange(10).repeat(10)
 dis_c = torch.zeros(100, 10, 1, 1, device=device)
@@ -54,12 +53,12 @@ c1 = dis_c.view(100, -1, 1, 1)
 # z = torch.randn(100, 62, 1, 1, device=device)
 z = torch.randn(100, 62, 1, 1, device=device) 
 
-# To see variation along c2 (Horizontally) and c1 (Vertically)
-noise1 = torch.cat((z, c1, c2), dim=1)
-# To see variation along c3 (Horizontally) and c1 (Vertically)
-noise2 = torch.cat((z, c1, c3), dim=1)
-
-noise3 = torch.cat((z, c1, c4), dim=1)
+# # To see variation along c2 (Horizontally) and c1 (Vertically)
+# noise1 = torch.cat((z, c1, c2), dim=1)
+# # To see variation along c3 (Horizontally) and c1 (Vertically)
+# noise2 = torch.cat((z, c1, c3), dim=1)
+noise1 = torch.cat((z, c2), dim=1)
+noise2 = torch.cat((z, c3), dim=1)
 
 
 # Generate image.
@@ -82,14 +81,14 @@ plt.imshow(np.transpose(vutils.make_grid(generated_img2, nrow=10, padding=2, nor
 plt.savefig("output/generated_2")
 plt.show()
 
-with torch.no_grad():
-    generated_img3 = netG(noise3).detach().cpu()
-# Display the generated image.
-fig = plt.figure(figsize=(10, 10))
-plt.axis("off")
-plt.imshow(np.transpose(vutils.make_grid(generated_img3, nrow=10, padding=2, normalize=True), (1,2,0)))
-plt.savefig("output/generated_3")
-plt.show()
+# with torch.no_grad():
+#     generated_img3 = netG(noise3).detach().cpu()
+# # Display the generated image.
+# fig = plt.figure(figsize=(10, 10))
+# plt.axis("off")
+# plt.imshow(np.transpose(vutils.make_grid(generated_img3, nrow=10, padding=2, normalize=True), (1,2,0)))
+# plt.savefig("output/generated_3")
+# plt.show()
 
 
 if (args.save1k) == True:
@@ -103,11 +102,12 @@ if (args.save1k) == True:
     for i in range(5):
         # z = torch.randn(100, 62, 1, 1, device=device)
         z = torch.randn(100, 62, 1, 1, device=device) 
-        # To see variation along c2 (Horizontally) and c1 (Vertically)
-        noise1 = torch.cat((z, c1, c2), dim=1)
-        # To see variation along c3 (Horizontally) and c1 (Vertically)
-        noise2 = torch.cat((z, c1, c3), dim=1)
-        noise3 = torch.cat((z, c1, c4), dim=1)
+        # # To see variation along c2 (Horizontally) and c1 (Vertically)
+        # noise1 = torch.cat((z, c1, c2), dim=1)
+        # # To see variation along c3 (Horizontally) and c1 (Vertically)
+        # noise2 = torch.cat((z, c1, c3), dim=1)
+        noise1 = torch.cat((z, c2), dim=1)
+        noise2 = torch.cat((z, c3), dim=1)
 
         with torch.no_grad():
             generated_img1 = netG(noise1).detach().cpu()
@@ -127,11 +127,11 @@ if (args.save1k) == True:
             plt.imshow((generated_img2[j])[0], cmap='gray')
             plt.savefig("output/imgs/generated_%d-2-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
 
-        with torch.no_grad():
-            generated_img3 = netG(noise3).detach().cpu()
+        # with torch.no_grad():
+        #     generated_img3 = netG(noise3).detach().cpu()
 
-        for j in range(generated_img3.shape[0]):
-            fig = plt.figure(figsize=(1, 1), dpi=28)
-            plt.axis("off")
-            plt.imshow((generated_img3[j])[0], cmap='gray')
-            plt.savefig("output/imgs/generated_%d-3-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
+        # for j in range(generated_img3.shape[0]):
+        #     fig = plt.figure(figsize=(1, 1), dpi=28)
+        #     plt.axis("off")
+        #     plt.imshow((generated_img3[j])[0], cmap='gray')
+        #     plt.savefig("output/imgs/generated_%d-3-%d" % (i, j), bbox_inches='tight', transparent="True", pad_inches=0)
