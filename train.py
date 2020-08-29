@@ -83,10 +83,10 @@ elif(params['dataset'] == 'CelebA'):
     params['dis_c_dim'] = 10
     params['num_con_c'] = 0
 elif(params['dataset'] == 'FashionMNIST'):
-    params['num_z'] = 0 #62 
+    params['num_z'] = 62 #62 
     params['num_dis_c'] = 1
     params['dis_c_dim'] = 10
-    params['num_con_c'] = 2
+    params['num_con_c'] = 3
 elif(params['dataset'] == 'ChestXRay'):
     params['num_z'] = 100
     params['num_dis_c'] = 1
