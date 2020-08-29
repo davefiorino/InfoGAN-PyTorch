@@ -53,12 +53,12 @@ c1 = dis_c.view(100, -1, 1, 1)
 # z = torch.randn(100, 62, 1, 1, device=device)
 z = torch.randn(100, 62, 1, 1, device=device) 
 
-# # To see variation along c2 (Horizontally) and c1 (Vertically)
+# To see variation along c2 (Horizontally) and c1 (Vertically)
 # noise1 = torch.cat((z, c1, c2), dim=1)
-# # To see variation along c3 (Horizontally) and c1 (Vertically)
+# To see variation along c3 (Horizontally) and c1 (Vertically)
 # noise2 = torch.cat((z, c1, c3), dim=1)
-noise1 = torch.cat((z, c2), dim=1)
-noise2 = torch.cat((z, c3), dim=1)
+noise1 = torch.cat((z, c1, c2), dim=1)
+noise2 = torch.cat((z, c1, c3), dim=1)
 
 
 # Generate image.
@@ -106,8 +106,8 @@ if (args.save1k) == True:
         # noise1 = torch.cat((z, c1, c2), dim=1)
         # # To see variation along c3 (Horizontally) and c1 (Vertically)
         # noise2 = torch.cat((z, c1, c3), dim=1)
-        noise1 = torch.cat((z, c2), dim=1)
-        noise2 = torch.cat((z, c3), dim=1)
+        noise1 = torch.cat((z, c1, c2), dim=1)
+        noise2 = torch.cat((z, c1, c3), dim=1)
 
         with torch.no_grad():
             generated_img1 = netG(noise1).detach().cpu()
