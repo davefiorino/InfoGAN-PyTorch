@@ -6,7 +6,7 @@ import config
 """
 Architecture based on InfoGAN paper.
 """
-'''
+
 class Generator(nn.Module):
 	def __init__(self):
 		super().__init__()
@@ -110,9 +110,9 @@ class QHead(nn.Module):
 		var = torch.exp(self.conv_var(x).squeeze())
 
 		return disc_logits, mu, var
+
+
 '''
-
-
 class Generator(nn.Module):
 	def __init__(self):
 		super().__init__()
@@ -192,3 +192,4 @@ class QHead(nn.Module):
 		var = torch.exp(self.conv_var(x).squeeze())
 
 		return disc_logits, mu, var
+'''
